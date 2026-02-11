@@ -1,0 +1,89 @@
+{
+  "name": "@agentic-candy-machine/sdk",
+  "version": "1.0.0",
+  "description": "Full-stack SDK for Agentic Candy Machine — TEE-attested recursive NFT passports on Solana via Metaplex",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./dna": {
+      "import": "./dist/esm/modules/dna/index.js",
+      "require": "./dist/cjs/modules/dna/index.js"
+    },
+    "./art": {
+      "import": "./dist/esm/modules/art/index.js",
+      "require": "./dist/cjs/modules/art/index.js"
+    },
+    "./token": {
+      "import": "./dist/esm/modules/token/index.js",
+      "require": "./dist/cjs/modules/token/index.js"
+    },
+    "./candy-machine": {
+      "import": "./dist/esm/modules/candy-machine/index.js",
+      "require": "./dist/cjs/modules/candy-machine/index.js"
+    },
+    "./recursive": {
+      "import": "./dist/esm/modules/recursive/index.js",
+      "require": "./dist/cjs/modules/recursive/index.js"
+    },
+    "./passport": {
+      "import": "./dist/esm/modules/passport/index.js",
+      "require": "./dist/cjs/modules/passport/index.js"
+    },
+    "./attestation": {
+      "import": "./dist/esm/modules/attestation/index.js",
+      "require": "./dist/cjs/modules/attestation/index.js"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "dev": "tsx watch src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "@metaplex-foundation/mpl-candy-machine": "^6.0.1",
+    "@metaplex-foundation/mpl-token-metadata": "^3.3.0",
+    "@metaplex-foundation/mpl-toolbox": "^0.9.4",
+    "@metaplex-foundation/umi": "^0.9.2",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.9.2",
+    "@metaplex-foundation/umi-web3js-adapters": "^0.9.2",
+    "@solana/spl-token": "^0.4.9",
+    "@solana/web3.js": "^1.98.0",
+    "bs58": "^6.0.0",
+    "buffer": "^6.0.3",
+    "eventemitter3": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "eslint": "^9.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@solana/web3.js": "^1.90.0"
+  },
+  "keywords": [
+    "solana", "nft", "candy-machine", "metaplex", "recursive-nft",
+    "ai-agent", "tee", "attestation", "passport", "web3"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/8bitlabs/agentic-candy-machine-sdk"
+  }
+}
