@@ -39,12 +39,13 @@ const FONTS = {
 
 // ─── Phase Definitions ───────────────────────────────────────
 const PHASES = [
-  { id: "dna", label: "DNA LAB", icon: "🧬", desc: "Agent identity & capabilities" },
-  { id: "art", label: "ART FORGE", icon: "🎨", desc: "Generate NFT artwork" },
-  { id: "token", label: "TOKEN", icon: "🪙", desc: "SPL token creation" },
-  { id: "candy", label: "CANDY MACHINE", icon: "🍬", desc: "Metaplex configuration" },
-  { id: "recursive", label: "RECURSION", icon: "♾️", desc: "Recursive metadata tree" },
-  { id: "mint", label: "MINT", icon: "⚡", desc: "Deploy & mint on Solana" },
+  { id: "dna",     label: "DNA LAB",       icon: "🧬", desc: "Agent identity & capabilities" },
+  { id: "art",     label: "ART FORGE",     icon: "🎨", desc: "Generate NFT artwork" },
+  { id: "token",   label: "TOKEN",         icon: "🪙", desc: "SPL token + bonding curve" },
+  { id: "candy",   label: "CANDY MACHINE", icon: "🍬", desc: "Metaplex configuration" },
+  { id: "recursive",label: "RECURSION",    icon: "♾️", desc: "Recursive metadata tree" },
+  { id: "x402",    label: "x402 PAY",      icon: "💳", desc: "HTTP 402 payment gating" },
+  { id: "mint",    label: "MINT",          icon: "⚡", desc: "Deploy & mint on Solana" },
 ];
 
 const TIERS = [
@@ -66,12 +67,27 @@ const CAPABILITIES = [
 ];
 
 const MODELS = [
-  { id: "glm-flash", name: "GLM-4.7 Flash", provider: "RedPill TEE", tag: "z-ai/glm-4.7-flash" },
-  { id: "phala-24b", name: "Phala Uncensored 24B", provider: "RedPill TEE", tag: "phala/uncensored-24b" },
-  { id: "claude-sonnet", name: "Claude Sonnet 4.5", provider: "Anthropic", tag: "claude-sonnet-4-5" },
-  { id: "gpt-4o", name: "GPT-4o", provider: "OpenAI", tag: "gpt-4o" },
-  { id: "grok-3", name: "Grok-3", provider: "xAI", tag: "grok-3" },
-  { id: "gemini-2.5", name: "Gemini 2.5 Pro", provider: "Google", tag: "gemini-2.5-pro" },
+  { id: "glm-flash",      name: "GLM-4.7 Flash",        provider: "RedPill TEE", tag: "z-ai/glm-4.7-flash" },
+  { id: "phala-24b",      name: "Phala Uncensored 24B",  provider: "RedPill TEE", tag: "phala/uncensored-24b" },
+  { id: "claude-sonnet46",name: "Claude Sonnet 4.6",     provider: "Anthropic (Clawd RWA)", tag: "claude-sonnet-4-6" },
+  { id: "claude-opus48",  name: "Claude Opus 4.8",       provider: "Anthropic",   tag: "claude-opus-4-8" },
+  { id: "gpt-4o",         name: "GPT-4o",                provider: "OpenAI",      tag: "gpt-4o" },
+  { id: "grok-3",         name: "Grok-3",                provider: "xAI",         tag: "grok-3" },
+  { id: "gemini-2.5",     name: "Gemini 2.5 Pro",        provider: "Google",      tag: "gemini-2.5-pro" },
+];
+
+const X402_PAYMENT_TOKENS = [
+  { id: "USDC", symbol: "USDC", name: "USD Coin",  decimals: 6, mint: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v" },
+  { id: "SOL",  symbol: "SOL",  name: "Solana",    decimals: 9, mint: "So11111111111111111111111111111111111111112" },
+  { id: "BONK", symbol: "BONK", name: "Bonk",      decimals: 5, mint: "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263" },
+  { id: "JUP",  symbol: "JUP",  name: "Jupiter",   decimals: 6, mint: "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN" },
+];
+
+const METAPLEX_NETWORKS = [
+  { id: "solana-mainnet", label: "Solana Mainnet", rpc: "https://api.mainnet-beta.solana.com" },
+  { id: "solana-devnet",  label: "Solana Devnet",  rpc: "https://api.devnet.solana.com" },
+  { id: "eclipse-mainnet",label: "Eclipse",        rpc: "https://mainnetbeta-rpc.eclipse.xyz" },
+  { id: "sonic-mainnet",  label: "Sonic",          rpc: "https://api.mainnet.sonic.game" },
 ];
 
 const GUARD_PRESETS = [
@@ -144,6 +160,25 @@ export default function AgenticCandyMachine() {
   const [recursionActions, setRecursionActions] = useState(["resolve", "execute", "compose"]);
   const [recursionPreview, setRecursionPreview] = useState(null);
 
+  // ─── x402 State ───────────────────────────────────────
+  const [x402PaymentToken, setX402PaymentToken] = useState("USDC");
+  const [x402PricePerCall, setX402PricePerCall] = useState("100000");
+  const [x402StreamPrice, setX402StreamPrice] = useState("150000");
+  const [x402EmbedPrice, setX402EmbedPrice] = useState("10000");
+  const [x402RateLimit, setX402RateLimit] = useState("20");
+  const [x402Registered, setX402Registered] = useState(false);
+  const [x402Registering, setX402Registering] = useState(false);
+
+  // ─── Metaplex Agent State ──────────────────────────────
+  const [metaplexNetwork, setMetaplexNetwork] = useState("solana-devnet");
+  const [metaplexMetadataUri, setMetaplexMetadataUri] = useState("");
+  const [metaplexAssetAddress, setMetaplexAssetAddress] = useState("");
+  const [metaplexMinting, setMetaplexMinting] = useState(false);
+  const [metaplexMinted, setMetaplexMinted] = useState(false);
+  const [metaplexTxSig, setMetaplexTxSig] = useState("");
+  const [launchBondingCurve, setLaunchBondingCurve] = useState(true);
+  const [creatorFeePercent, setCreatorFeePercent] = useState("2.5");
+
   // ─── Mint State ────────────────────────────────────────
   const [walletAddress, setWalletAddress] = useState("");
   const [network, setNetwork] = useState("devnet");
@@ -173,7 +208,7 @@ export default function AgenticCandyMachine() {
     setTimeout(() => { setPhase(idx); setAnimating(false); }, 300);
   };
 
-  const nextPhase = () => { if (phase < 5) goPhase(phase + 1); };
+  const nextPhase = () => { if (phase < 6) goPhase(phase + 1); };
   const prevPhase = () => { if (phase > 0) goPhase(phase - 1); };
 
   // ─── Capability Toggle ─────────────────────────────────
@@ -468,7 +503,18 @@ export default function AgenticCandyMachine() {
             recursionActions, setRecursionActions,
             recursionPreview, capabilities, agentName, tier,
           }} />}
-          {phase === 5 && <PhaseMint {...{
+          {phase === 5 && <PhaseX402 {...{
+            agentName, agentHandle: agentHandle || agentName.toLowerCase().replace(/\s+/g, ""),
+            x402PaymentToken, setX402PaymentToken,
+            x402PricePerCall, setX402PricePerCall,
+            x402StreamPrice, setX402StreamPrice,
+            x402EmbedPrice, setX402EmbedPrice,
+            x402RateLimit, setX402RateLimit,
+            x402Registered, setX402Registered,
+            x402Registering, setX402Registering,
+            walletAddress,
+          }} />}
+          {phase === 6 && <PhaseMint {...{
             walletAddress, setWalletAddress, network, setNetwork,
             rpcEndpoint, setRpcEndpoint, redpillKey, setRedpillKey,
             googleKey, setGoogleKey,
@@ -476,6 +522,15 @@ export default function AgenticCandyMachine() {
             agentName, tier, capabilities, primaryModel,
             generatedArt, cmItemsAvailable, cmGuardPreset,
             tokenName, tokenSymbol, recursionDepth, attestations,
+            // Metaplex agent
+            metaplexNetwork, setMetaplexNetwork,
+            metaplexMetadataUri, setMetaplexMetadataUri,
+            metaplexAssetAddress, setMetaplexAssetAddress,
+            metaplexMinting, setMetaplexMinting,
+            metaplexMinted, setMetaplexMinted,
+            metaplexTxSig, setMetaplexTxSig,
+            launchBondingCurve, setLaunchBondingCurve,
+            creatorFeePercent, setCreatorFeePercent,
           }} />}
         </div>
 
@@ -517,8 +572,8 @@ export default function AgenticCandyMachine() {
             }} />
           ))}
         </div>
-        <button onClick={nextPhase} disabled={phase === 5} style={{
-          ...btnStyle(true), opacity: phase === 5 ? 0.3 : 1,
+        <button onClick={nextPhase} disabled={phase === 6} style={{
+          ...btnStyle(true), opacity: phase === 6 ? 0.3 : 1,
         }}>NEXT →</button>
       </div>
     </div>
@@ -994,7 +1049,173 @@ function PhaseRecursive({ recursionDepth, setRecursionDepth, recursionActions, s
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  PHASE 5: MINT PORTAL
+//  PHASE 5: x402 PAYMENT GATING
+// ═══════════════════════════════════════════════════════════════
+
+function PhaseX402({
+  agentName, agentHandle,
+  x402PaymentToken, setX402PaymentToken,
+  x402PricePerCall, setX402PricePerCall,
+  x402StreamPrice, setX402StreamPrice,
+  x402EmbedPrice, setX402EmbedPrice,
+  x402RateLimit, setX402RateLimit,
+  x402Registered, setX402Registered,
+  x402Registering, setX402Registering,
+  walletAddress,
+}) {
+  const handle = agentHandle || agentName?.toLowerCase().replace(/\s+/g, "") || "my-agent";
+  const registryUrl = `https://x402.wtf/agents/${handle}`;
+
+  const simulate402Register = () => {
+    setX402Registering(true);
+    setTimeout(() => {
+      setX402Registering(false);
+      setX402Registered(true);
+    }, 2200);
+  };
+
+  const endpoints = [
+    { path: `infer`,   label: "Inference",  price: x402PricePerCall, icon: "🧠" },
+    { path: `stream`,  label: "Streaming",  price: x402StreamPrice,  icon: "⚡" },
+    { path: `embed`,   label: "Embeddings", price: x402EmbedPrice,   icon: "🔢" },
+  ];
+
+  const selectedToken = X402_PAYMENT_TOKENS.find(t => t.id === x402PaymentToken) || X402_PAYMENT_TOKENS[0];
+  const toHuman = (raw) => {
+    const n = parseInt(raw, 10) || 0;
+    return (n / (10 ** selectedToken.decimals)).toFixed(selectedToken.decimals === 9 ? 6 : 4);
+  };
+
+  return (
+    <div style={{ maxWidth: 900, margin: "0 auto" }}>
+      <PhaseHeader icon="💳" title="x402 PAY GATE" subtitle="Register payment-gated API endpoints on x402.wtf — agents charge per inference call via HTTP 402" />
+
+      {/* Payment Token */}
+      <Section title="PAYMENT TOKEN">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
+          {X402_PAYMENT_TOKENS.map(t => (
+            <button key={t.id} onClick={() => setX402PaymentToken(t.id)} style={{
+              padding: "14px 10px", borderRadius: 8, cursor: "pointer", textAlign: "center",
+              border: `1px solid ${x402PaymentToken === t.id ? `${C.cyan}55` : C.border}`,
+              background: x402PaymentToken === t.id ? `${C.cyan}0c` : C.card,
+              transition: "all 0.2s ease",
+            }}>
+              <div style={{ fontFamily: FONTS.display, fontSize: 13, fontWeight: 700, color: x402PaymentToken === t.id ? C.cyan : C.text }}>{t.symbol}</div>
+              <div style={{ fontSize: 9, color: C.textMuted, marginTop: 3 }}>{t.name}</div>
+              <div style={{ fontSize: 8, color: `${C.textMuted}88`, marginTop: 2, fontFamily: FONTS.body }}>{t.decimals} decimals</div>
+            </button>
+          ))}
+        </div>
+      </Section>
+
+      {/* Endpoint Pricing */}
+      <Section title="ENDPOINT PRICING">
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 12, alignItems: "end" }}>
+            <div style={{ fontFamily: FONTS.display, fontSize: 9, color: C.textMuted, letterSpacing: 2 }}>ENDPOINT</div>
+            <div style={{ fontFamily: FONTS.display, fontSize: 9, color: C.textMuted, letterSpacing: 2 }}>AMOUNT (raw)</div>
+            <div style={{ fontFamily: FONTS.display, fontSize: 9, color: C.textMuted, letterSpacing: 2 }}>HUMAN</div>
+            <div style={{ fontFamily: FONTS.display, fontSize: 9, color: C.textMuted, letterSpacing: 2 }}>RATE LIMIT/min</div>
+          </div>
+          {[
+            { label: "🧠  /infer",   val: x402PricePerCall, set: setX402PricePerCall },
+            { label: "⚡  /stream",  val: x402StreamPrice,  set: setX402StreamPrice  },
+            { label: "🔢  /embed",   val: x402EmbedPrice,   set: setX402EmbedPrice   },
+          ].map(({ label, val, set }, i) => (
+            <div key={i} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 12, alignItems: "center" }}>
+              <div style={{
+                padding: "10px 12px", borderRadius: 6, fontFamily: FONTS.body,
+                fontSize: 11, color: C.cyan, background: `${C.cyan}08`, border: `1px solid ${C.cyan}15`,
+              }}>
+                /agents/{handle}/{label.split("/")[1]}
+              </div>
+              <input value={val} onChange={e => set(e.target.value)} style={{ ...inputStyle, textAlign: "right" }} type="number" />
+              <div style={{ ...inputStyle, color: C.green, fontWeight: 600, fontSize: 12 }}>
+                {toHuman(val)} {selectedToken.symbol}
+              </div>
+              {i === 0 && (
+                <input value={x402RateLimit} onChange={e => setX402RateLimit(e.target.value)}
+                  style={{ ...inputStyle, textAlign: "right" }} type="number" placeholder="20" />
+              )}
+              {i > 0 && <div style={{ ...inputStyle, color: C.textMuted }}>—</div>}
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Payment Flow Diagram */}
+      <Section title="HTTP 402 FLOW">
+        <div style={{
+          padding: 20, borderRadius: 8, background: C.card, border: `1px solid ${C.border}`,
+          fontFamily: FONTS.body, fontSize: 11, lineHeight: 2,
+        }}>
+          {[
+            [`Client`, `POST /agents/${handle}/infer`, C.text],
+            [`Server`, `← 402 Payment Required { x402 challenge, payTo: ${walletAddress?.slice(0,8) || "YOUR_WALLET"}..., amount: ${toHuman(x402PricePerCall)} ${selectedToken.symbol} }`, C.gold],
+            [`Client`, `pays on-chain → proof header`, C.cyan],
+            [`Server`, `← 200 OK { inference result }`, C.green],
+          ].map(([actor, msg, color], i) => (
+            <div key={i} style={{ display: "flex", gap: 12 }}>
+              <span style={{ minWidth: 50, color: C.textMuted, fontSize: 9, paddingTop: 2 }}>{actor}</span>
+              <span style={{ color }}>{msg}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Registration */}
+      <Section title="REGISTER ON x402.wtf">
+        <div style={{
+          padding: 16, borderRadius: 8, marginBottom: 16,
+          background: `${C.cyan}06`, border: `1px solid ${C.cyan}15`,
+        }}>
+          <div style={{ fontSize: 10, color: C.textMuted, marginBottom: 4 }}>Registry URL</div>
+          <div style={{ fontFamily: FONTS.body, fontSize: 12, color: C.cyan }}>{registryUrl}</div>
+        </div>
+
+        {!x402Registered ? (
+          <button type="button" onClick={simulate402Register} disabled={x402Registering} style={{
+            width: "100%", height: 48, borderRadius: 8, border: "none", cursor: "pointer",
+            background: x402Registering ? `${C.textMuted}22` : `linear-gradient(135deg, ${C.cyan}, ${C.green})`,
+            fontFamily: FONTS.display, fontSize: 12, fontWeight: 700, color: "#fff", letterSpacing: 2,
+            boxShadow: x402Registering ? "none" : `0 4px 20px ${C.cyan}33`,
+            transition: "all 0.3s ease",
+          }}>
+            {x402Registering
+              ? <span style={{ display:"flex", alignItems:"center", justifyContent:"center", gap: 8 }}>
+                  <span style={{ animation:"spin 1s linear infinite", display:"inline-block" }}>⟳</span> REGISTERING...
+                </span>
+              : "💳 REGISTER ON x402.wtf"}
+          </button>
+        ) : (
+          <div style={{
+            padding: 16, borderRadius: 8, textAlign: "center",
+            background: `${C.green}0a`, border: `1px solid ${C.green}22`,
+          }}>
+            <div style={{ fontFamily: FONTS.display, fontSize: 12, color: C.green, letterSpacing: 2, fontWeight: 700 }}>
+              ✓ REGISTERED ON x402.wtf
+            </div>
+            <div style={{ fontSize: 10, color: C.textMuted, marginTop: 6 }}>{registryUrl}</div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 12 }}>
+              {endpoints.map(ep => (
+                <div key={ep.path} style={{
+                  padding: "6px 12px", borderRadius: 4,
+                  background: `${C.cyan}0a`, border: `1px solid ${C.cyan}15`,
+                  fontSize: 9, color: C.cyan,
+                }}>
+                  {ep.icon} /{ep.path} • {toHuman(ep.price)} {selectedToken.symbol}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </Section>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  PHASE 6: MINT PORTAL
 // ═══════════════════════════════════════════════════════════════
 
 function PhaseMint({
