@@ -1,6 +1,6 @@
 # 🍬 Agentic Candy Machine SDK
 
-[![npm version](https://img.shields.io/npm/v/@agentic-candy-machine/sdk)](https://www.npmjs.com/package/@agentic-candy-machine/sdk)
+[![npm version](https://img.shields.io/npm/v/@openclawdsol/agentic-candy-machine-sdk)](https://www.npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue)](https://www.typescriptlang.org/)
 
@@ -54,13 +54,13 @@ DNA → Art → Token → Candy Machine → Recursive Metadata → Mint
 ## Installation
 
 ```bash
-npm install @agentic-candy-machine/sdk
+npm install @openclawdsol/agentic-candy-machine-sdk
 ```
 
 ## Quick Start
 
 ```typescript
-import { AgenticCandyMachineSDK, DNABuilder } from "@agentic-candy-machine/sdk";
+import { AgenticCandyMachineSDK, DNABuilder } from "@openclawdsol/agentic-candy-machine-sdk";
 import { Keypair } from "@solana/web3.js";
 
 // Initialize
@@ -125,7 +125,7 @@ console.log("Attestations:", result.attestations.length);
 ### 🧬 DNA Lab
 
 ```typescript
-import { DNABuilder, DNAEncoder } from "@agentic-candy-machine/sdk";
+import { DNABuilder, DNAEncoder } from "@openclawdsol/agentic-candy-machine-sdk";
 
 const dna = new DNABuilder()
   .name("NeuralTrader")
@@ -154,7 +154,7 @@ console.log("Valid:", DNAEncoder.verify(encoding));
 ### 🎨 Art Forge
 
 ```typescript
-import { ArtPipeline } from "@agentic-candy-machine/sdk";
+import { ArtPipeline } from "@openclawdsol/agentic-candy-machine-sdk";
 
 const art = new ArtPipeline({
   googleApiKey: process.env.GOOGLE_API_KEY,
@@ -186,7 +186,7 @@ art.registerProvider("custom", async (prompt, config) => {
 ### 🪙 Token Foundry
 
 ```typescript
-import { TokenBuilder, TokenDeployer } from "@agentic-candy-machine/sdk";
+import { TokenBuilder, TokenDeployer } from "@openclawdsol/agentic-candy-machine-sdk";
 
 const tokenConfig = new TokenBuilder()
   .name("Agent Governance Token")
@@ -207,7 +207,7 @@ console.log("Mint:", result.mint.toBase58());
 ### 🍬 Candy Machine
 
 ```typescript
-import { CandyMachineBuilder, CandyMachineClient, GuardBuilder } from "@agentic-candy-machine/sdk";
+import { CandyMachineBuilder, CandyMachineClient, GuardBuilder } from "@openclawdsol/agentic-candy-machine-sdk";
 
 // Build guards
 const publicGuards = new GuardBuilder()
@@ -267,7 +267,7 @@ console.log(`${status.itemsMinted}/${status.itemsAvailable} minted`);
 import {
   RecursiveMetadataBuilder, RecursiveResolver, PassportTreeBuilder,
   buildPointerUri, parsePointerUri,
-} from "@agentic-candy-machine/sdk";
+} from "@openclawdsol/agentic-candy-machine-sdk";
 
 // Build recursive metadata manually
 const meta = new RecursiveMetadataBuilder()
@@ -333,7 +333,7 @@ const pointer = parsePointerUri("recurse://5FHwk.../2/execute");
 ### 🛡️ Attestation
 
 ```typescript
-import { AttestationService, TEETerminal } from "@agentic-candy-machine/sdk";
+import { AttestationService, TEETerminal } from "@openclawdsol/agentic-candy-machine-sdk";
 
 // Create attestation for any action
 const attestation = await sdk.attestation.attest(
