@@ -1226,7 +1226,38 @@ function PhaseMint({
   agentName, tier, capabilities, primaryModel,
   generatedArt, cmItemsAvailable, cmGuardPreset,
   tokenName, tokenSymbol, recursionDepth, attestations,
+  // Metaplex agent
+  metaplexNetwork, setMetaplexNetwork,
+  metaplexMetadataUri, setMetaplexMetadataUri,
+  metaplexAssetAddress, setMetaplexAssetAddress,
+  metaplexMinting, setMetaplexMinting,
+  metaplexMinted, setMetaplexMinted,
+  metaplexTxSig, setMetaplexTxSig,
+  launchBondingCurve, setLaunchBondingCurve,
+  creatorFeePercent, setCreatorFeePercent,
 }) {
+  function simulateMintAgent() {
+    if (!agentName || metaplexMinting) return;
+    setMetaplexMinting(true);
+    setMetaplexMinted(false);
+    setMetaplexAssetAddress("");
+    setMetaplexTxSig("");
+    // Simulate mintAndSubmitAgent latency
+    setTimeout(() => {
+      const fakeAsset = Array.from({ length: 44 }, () =>
+        "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"[
+          Math.floor(Math.random() * 58)
+        ]
+      ).join("");
+      const fakeTx = Array.from({ length: 88 }, () =>
+        "0123456789abcdef"[Math.floor(Math.random() * 16)]
+      ).join("");
+      setMetaplexAssetAddress(fakeAsset);
+      setMetaplexTxSig(fakeTx);
+      setMetaplexMinted(true);
+      setMetaplexMinting(false);
+    }, 2800);
+  }
   return (
     <div style={{ maxWidth: 900, margin: "0 auto" }}>
       <PhaseHeader icon="⚡" title="MINT PORTAL" subtitle="Connect your wallet, configure keys, and deploy everything to Solana" />
@@ -1259,6 +1290,198 @@ function PhaseMint({
               <Field label="RedPill API Key" value={redpillKey} onChange={setRedpillKey} placeholder="sk-..." type="password" />
               <Field label="Google API Key" value={googleKey} onChange={setGoogleKey} placeholder="AIza..." type="password" />
             </div>
+          </Section>
+
+          {/* Metaplex Agent Registry */}
+          <Section title="METAPLEX AGENT REGISTRY">
+            <div style={{ marginBottom: 14 }}>
+              <span style={labelStyle}>Network</span>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                {METAPLEX_NETWORKS.map(n => (
+                  <button key={n.id} type="button" onClick={() => setMetaplexNetwork(n.id)} style={{
+                    padding: "8px 14px", borderRadius: 6, cursor: "pointer", fontSize: 10,
+                    border: `1px solid ${metaplexNetwork === n.id ? `${C.purple}66` : C.border}`,
+                    background: metaplexNetwork === n.id ? `${C.purple}10` : C.card,
+                    fontFamily: FONTS.body, color: metaplexNetwork === n.id ? C.purple : C.textDim,
+                    transition: "all 0.15s",
+                  }}>{n.label}</button>
+                ))}
+              </div>
+            </div>
+
+            <Field
+              label="NFT Metadata URI (Arweave / IPFS)"
+              value={metaplexMetadataUri}
+              onChange={setMetaplexMetadataUri}
+              placeholder="https://arweave.net/<tx-id>/metadata.json"
+            />
+
+            {/* EIP-8004 preview */}
+            <div style={{
+              margin: "12px 0", padding: 12, borderRadius: 8,
+              background: C.card, border: `1px solid ${C.border}`,
+              fontFamily: FONTS.mono, fontSize: 9, color: C.textMuted,
+              overflowX: "auto",
+            }}>
+              <div style={{ color: C.purple, marginBottom: 6, fontSize: 9, letterSpacing: 1 }}>
+                EIP-8004 AGENT DOCUMENT PREVIEW
+              </div>
+              {`{
+  "type": "eip-8004#registration-v1",
+  "name": "${agentName || "<agent-name>"}",
+  "services": [
+    { "name": "web",  "endpoint": "https://x402.wtf/agents/${agentName?.toLowerCase().replace(/\s+/g, "-") || "agent"}" },
+    { "name": "A2A",  "endpoint": ".../agent-card.json", "version": "0.3.0" },
+    { "name": "MCP",  "endpoint": ".../mcp", "version": "2025-06-18" }
+  ],
+  "x402": { "endpoint": "https://x402.wtf/...", "paymentToken": "USDC" }
+}`}
+            </div>
+
+            {/* Mint button */}
+            {!metaplexMinted ? (
+              <button type="button" onClick={simulateMintAgent} disabled={metaplexMinting || !agentName} style={{
+                width: "100%", height: 44, borderRadius: 8, border: "none",
+                cursor: metaplexMinting || !agentName ? "default" : "pointer",
+                background: metaplexMinting
+                  ? `${C.textMuted}22`
+                  : `linear-gradient(135deg, ${C.purple}, ${C.cyan}88)`,
+                fontFamily: FONTS.display, fontSize: 12, fontWeight: 700,
+                color: "#fff", letterSpacing: 2,
+                boxShadow: metaplexMinting ? "none" : `0 2px 20px ${C.purple}44`,
+                transition: "all 0.3s",
+              }}>
+                {metaplexMinting ? (
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                    <span style={{ animation: "spin 1s linear infinite", display: "inline-block" }}>⟳</span>
+                    MINTING AGENT ON-CHAIN…
+                  </span>
+                ) : "◈  MINT AGENT ON METAPLEX"}
+              </button>
+            ) : (
+              <div style={{
+                padding: 16, borderRadius: 8,
+                background: `linear-gradient(135deg, ${C.purple}0a, ${C.green}08)`,
+                border: `1px solid ${C.purple}33`,
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <span style={{ fontSize: 16 }}>✓</span>
+                  <span style={{ fontFamily: FONTS.display, fontSize: 11, color: C.green, letterSpacing: 2 }}>
+                    AGENT MINTED — AgentIdentityV2 PDA LIVE
+                  </span>
+                </div>
+                {[
+                  ["Asset Address", metaplexAssetAddress],
+                  ["Tx Signature", `${metaplexTxSig.slice(0, 40)}…`],
+                  ["Agent Identity PDA", "seeds: [\"agent_identity\", asset]"],
+                  ["Asset Signer PDA",   "seeds: [\"mpl-core-execute\", asset]"],
+                  ["Registry",          `metaplex.com/agents/${metaplexAssetAddress.slice(0,8)}…`],
+                ].map(([k, v]) => (
+                  <div key={k} style={{
+                    display: "flex", justifyContent: "space-between", alignItems: "center",
+                    padding: "5px 0", borderBottom: `1px solid ${C.border}`,
+                  }}>
+                    <span style={{ fontSize: 9, color: C.textMuted }}>{k}</span>
+                    <span style={{ fontSize: 9, color: C.text, fontFamily: FONTS.mono }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Section>
+
+          {/* Genesis Bonding Curve — $CLAWD Token Launch */}
+          <Section title="GENESIS TOKEN LAUNCH">
+            <div style={{
+              padding: "10px 14px", borderRadius: 8, marginBottom: 14,
+              background: `${C.gold ?? "#FFD700"}08`, border: `1px solid ${C.gold ?? "#FFD700"}22`,
+              fontSize: 10, color: C.textDim, lineHeight: 1.6,
+            }}>
+              Bind a <strong style={{ color: C.gold ?? "#FFD700" }}>Genesis bonding curve token</strong> to
+              your agent NFT via <code style={{ fontFamily: FONTS.mono, color: C.cyan }}>setAgentTokenV1</code>.
+              The token graduates to Raydium CPMM when the curve fills.
+              This action is <strong style={{ color: "#FF4466" }}>irreversible</strong> once confirmed.
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+              <span style={{ ...labelStyle, marginBottom: 0 }}>Launch Bonding Curve Token</span>
+              <button
+                type="button"
+                onClick={() => setLaunchBondingCurve(!launchBondingCurve)}
+                style={{
+                  width: 48, height: 26, borderRadius: 13, border: "none", cursor: "pointer",
+                  background: launchBondingCurve ? C.green : C.border,
+                  position: "relative", transition: "background 0.2s",
+                }}
+              >
+                <span style={{
+                  position: "absolute", top: 3,
+                  left: launchBondingCurve ? 24 : 4,
+                  width: 20, height: 20, borderRadius: "50%",
+                  background: "#fff", transition: "left 0.2s",
+                }} />
+              </button>
+            </div>
+
+            {launchBondingCurve && (
+              <>
+                <Field
+                  label="Creator Fee %"
+                  value={creatorFeePercent}
+                  onChange={setCreatorFeePercent}
+                  placeholder="2.5"
+                />
+
+                <div style={{
+                  marginTop: 12, padding: 12, borderRadius: 8,
+                  background: C.card, border: `1px solid ${C.border}`,
+                  fontFamily: FONTS.mono, fontSize: 9, color: C.textMuted,
+                }}>
+                  <div style={{ color: C.cyan, marginBottom: 6, fontSize: 9, letterSpacing: 1 }}>
+                    GENERATED CLI COMMANDS
+                  </div>
+                  <div style={{ color: C.textDim, lineHeight: 1.8 }}>
+                    <div style={{ color: C.green }}>
+                      {`# 1. Mint agent + AgentIdentityV2 PDA`}
+                    </div>
+                    {`mplx agents mint \\`}
+                    <br />{`  --name "${agentName || "<name>"}" \\`}
+                    <br />{`  --uri "${metaplexMetadataUri || "<ARWEAVE_URI>"}" \\`}
+                    <br />{`  --agent-metadata-uri "https://x402.wtf/agents/${agentName?.toLowerCase().replace(/\s+/g, "-") || "agent"}/agent-card.json"`}
+                    <br /><br />
+                    <div style={{ color: C.green }}>
+                      {`# 2. Launch Genesis bonding curve + bind token`}
+                    </div>
+                    {`mplx genesis launch create \\`}
+                    <br />{`  --launchType bonding-curve \\`}
+                    <br />{`  --name "${agentName || "<name>"} Token" \\`}
+                    <br />{`  --symbol "${(agentName || "TOKEN").toUpperCase().slice(0,6)}" \\`}
+                    <br />{`  --agentAsset ${metaplexAssetAddress || "<ASSET_ADDRESS>"} \\`}
+                    <br />{`  --agentSetToken \\`}
+                    <br />{`  --creatorFee ${creatorFeePercent || "2.5"}`}
+                  </div>
+                </div>
+
+                <div style={{
+                  display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 12,
+                }}>
+                  {[
+                    { label: "Token Type", val: "Genesis Bonding Curve", icon: "◈" },
+                    { label: "Graduates To", val: "Raydium CPMM", icon: "⟳" },
+                    { label: "Token Binding", val: "setAgentTokenV1 (1-shot)", icon: "⛓" },
+                  ].map(({ label, val, icon }) => (
+                    <div key={label} style={{
+                      padding: "10px 12px", borderRadius: 8,
+                      background: `${C.purple}08`, border: `1px solid ${C.purple}22`,
+                      textAlign: "center",
+                    }}>
+                      <div style={{ fontSize: 16, marginBottom: 4 }}>{icon}</div>
+                      <div style={{ fontSize: 9, color: C.textMuted }}>{label}</div>
+                      <div style={{ fontSize: 9, color: C.text, marginTop: 3, fontWeight: 600 }}>{val}</div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </Section>
 
           {/* Deployment Summary */}

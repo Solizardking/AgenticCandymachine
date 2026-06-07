@@ -1,6 +1,6 @@
 {
   "name": "@openclawdsol/agentic-candy-machine-sdk",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Full-stack SDK for Agentic Candy Machine — TEE-attested recursive NFT passports on Solana via Metaplex",
   "license": "MIT",
   "type": "module",
