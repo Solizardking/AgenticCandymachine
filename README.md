@@ -1,576 +1,541 @@
+<!-- ═══════════════════════════════════════════════════════════════════════
+    Agentic Candy Machine SDK
+    Full-stack recursive NFT passport factory — TEE-attested, x402-payment-gated, Metaplex-registered agents on Solana.
+    ═══════════════════════════════════════════════════════════════════════ -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/Solizardking/AgenticCandymachine/main/assets/banner.svg" alt="Agentic Candy Machine" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Solizardking/AgenticCandymachine/main/assets/logo-dark.svg" />
+    <!-- SVG inline logo with glow animation -->
+    <svg width="320" height="90" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="candyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#9945FF;stop-opacity:1" />
+          <stop offset="25%" style="stop-color:#14F195;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#19FB9B;stop-opacity:1" />
+          <stop offset="75%" style="stop-color:#FF6B6B;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#9945FF;stop-opacity:1" />
+          <animate attributeName="x1" values="0%;100%;0%" dur="4s" repeatCount="indefinite" />
+          <animate attributeName="y1" values="0%;100%;0%" dur="4s" repeatCount="indefinite" />
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+          <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <filter id="pixelGlow">
+          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.6 0" result="tint" />
+          <feMerge><feMergeNode in="tint" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Pulsing circle -->
+      <circle cx="45" cy="45" r="30" fill="none" stroke="url(#candyGrad)" stroke-width="2" filter="url(#glow)" opacity="0.6">
+        <animate attributeName="r" values="28;33;28" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+      </circle>
+
+      <!-- Inner hex -->
+      <polygon points="45,20 65,32 65,58 45,70 25,58 25,32" fill="none" stroke="#14F195" stroke-width="1.5" filter="url(#pixelGlow)">
+        <animateTransform attributeName="transform" type="rotate" from="0 45 45" to="360 45 45" dur="12s" repeatCount="indefinite" />
+      </polygon>
+
+      <!-- Title -->
+      <text x="90" y="42" font-family="monospace" font-size="14" font-weight="bold" fill="url(#candyGrad)" filter="url(#glow)">
+        AGENTIC CANDY
+      </text>
+      <text x="90" y="62" font-family="monospace" font-size="14" font-weight="bold" fill="url(#candyGrad)" filter="url(#glow)">
+        MACHINE
+      </text>
+      <text x="90" y="80" font-family="monospace" font-size="8" fill="#888">
+        Solana · Metaplex · x402
+      </text>
+    </svg>
+  </picture>
 </p>
 
 <p align="center">
-  <a href="https://npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk"><img src="https://img.shields.io/npm/v/@openclawdsol/agentic-candy-machine-sdk?color=%23FF00FF&style=for-the-badge&label=npm" /></a>
-  <img src="https://img.shields.io/badge/LICENSE-MIT-%23FFD700?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/TYPESCRIPT-5.7+-%2314F195?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/SOLANA-MAINNET-%239945FF?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/METAPLEX-AGENTS-%23FF6B35?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/x402.wtf-REGISTERED-%2300FFFF?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/CLAWD-RWA-%23FF00FF?style=for-the-badge" />
+  <strong>Full-stack SDK for TEE-attested recursive NFT passports on Solana</strong><br />
+  <sub>DNA → Art → Token → Candy Machine → Recursive Metadata → Mint</sub>
 </p>
 
 <p align="center">
-  <i>TEE-attested recursive NFT passports · Provably fair gacha · x402 payment gating</i><br/>
-  <i>The world's first tokenized AI model RWA on Solana — <strong>Clawd</strong></i>
+  <!-- Shields -->
+  <a href="https://www.npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk">
+    <img src="https://img.shields.io/npm/v/@openclawdsol/agentic-candy-machine-sdk?color=%2314F195&style=for-the-badge" alt="npm version" />
+  </a>
+  <a href="https://www.npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk">
+    <img src="https://img.shields.io/npm/dm/@openclawdsol/agentic-candy-machine-sdk?color=%239945FF&style=for-the-badge" alt="downloads" />
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-brightgreen?style=for-the-badge" alt="MIT License" />
+  </a>
+  <a href="https://x402.wtf">
+    <img src="https://img.shields.io/badge/x402-Payment%20Gated-FF6B6B?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSI0IiBmaWxsPSIjRkY2QjZCIi8+PHRleHQgeD0iMyIgeT0iMTIiIGZvbnQtc2l6ZT0iOSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiPjQwMjwvdGV4dD48L3N2Zz4=" alt="x402" />
+  </a>
 </p>
 
 ---
+
+## Pipeline Animation
 
 <p align="center">
+  <!-- Animated pipeline diagram — SVG inline -->
+  <svg width="800" height="280" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#14F195" />
+        <stop offset="50%" style="stop-color:#9945FF" />
+        <stop offset="100%" style="stop-color:#FF6B6B" />
+      </linearGradient>
+    </defs>
 
-```
-╔══════════════════════════════════════════════════════════════════════════╗
-║  ░▒▓█  A G E N T I C   C A N D Y   M A C H I N E  █▓▒░   v1.1.0      ║
-║      N E O N   P R O T O C O L  ·  C L A W D   R W A                  ║
-╚══════════════════════════════════════════════════════════════════════════╝
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -80; } }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+      .flow { stroke: url(#pipeGrad); stroke-width: 3; fill: none; stroke-dasharray: 10 6; animation: dash 1s linear infinite; }
+      .node-text { font-family: monospace; font-size: 11px; fill: #ccc; text-anchor: middle; }
+      .step { animation: fadeIn 0.6s ease-out forwards; }
+    </style>
 
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-   ░                                                                    ░
-   ░   🧬 DNA  ──▶  🎨 ART  ──▶  🪙 TOKEN  ──▶  🎰 GACHA              ░
-   ░               ──▶  🍬 CANDY  ──▶  ♾️  RECURSIVE  ──▶  🛂 PASS     ░
-   ░               ──▶  🤖 METAPLEX AGENT  ──▶  💳 x402                ░
-   ░               ──▶  🌐 CLAWD RWA  ──▶  💰 $CLAWD TOKEN             ░
-   ░                                                                    ░
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-```
+    <!-- Pipeline flow lines -->
+    <path d="M 90,110 L 175,110" class="flow" />
+    <path d="M 225,110 L 310,110" class="flow" style="animation-delay: 0.2s;" />
+    <path d="M 360,110 L 445,110" class="flow" style="animation-delay: 0.4s;" />
+    <path d="M 495,110 L 580,110" class="flow" style="animation-delay: 0.6s;" />
+    <path d="M 630,110 L 715,110" class="flow" style="animation-delay: 0.8s;" />
 
+    <!-- Step 1: DNA -->
+    <g class="step">
+      <rect x="20" y="80" width="70" height="60" rx="8" fill="#1a1a2e" stroke="#9945FF" stroke-width="2" />
+      <text x="55" y="104" font-family="monospace" font-size="14" fill="#9945FF" text-anchor="middle">🧬</text>
+      <text x="55" y="130" class="node-text" fill="#9945FF">DNA</text>
+      <text x="100" y="75" font-family="monospace" font-size="8" fill="#666" text-anchor="middle">Traits · Tier · Capabilities</text>
+    </g>
+
+    <!-- Step 2: Art -->
+    <g class="step" style="animation-delay: 0.1s;">
+      <rect x="175" y="80" width="70" height="60" rx="8" fill="#1a1a2e" stroke="#14F195" stroke-width="2" />
+      <text x="210" y="104" font-family="monospace" font-size="14" fill="#14F195" text-anchor="middle">🎨</text>
+      <text x="210" y="130" class="node-text" fill="#14F195">Art</text>
+      <text x="250" y="75" font-family="monospace" font-size="8" fill="#666" text-anchor="middle">Prompt → Image → Metadata</text>
+    </g>
+
+    <!-- Step 3: Token + Step 4: Candy Machine (grouped in vertical stack for token + CM) -->
+    <g class="step" style="animation-delay: 0.2s;">
+      <rect x="310" y="60" width="70" height="50" rx="8" fill="#1a1a2e" stroke="#19FB9B" stroke-width="2" />
+      <text x="345" y="80" font-family="monospace" font-size="11" fill="#19FB9B" text-anchor="middle">🪙</text>
+      <text x="345" y="100" class="node-text" fill="#19FB9B">Token</text>
+
+      <rect x="310" y="130" width="70" height="50" rx="8" fill="#1a1a2e" stroke="#FF6B6B" stroke-width="2" />
+      <text x="345" y="150" font-family="monospace" font-size="11" fill="#FF6B6B" text-anchor="middle">🍬</text>
+      <text x="345" y="170" class="node-text" fill="#FF6B6B">Candy Mach</text>
+    </g>
+
+    <!-- Step 4: Recursive -->
+    <g class="step" style="animation-delay: 0.3s;">
+      <rect x="445" y="80" width="70" height="60" rx="8" fill="#1a1a2e" stroke="#FFD700" stroke-width="2" />
+      <text x="480" y="104" font-family="monospace" font-size="14" fill="#FFD700" text-anchor="middle">🔄</text>
+      <text x="480" y="130" class="node-text" fill="#FFD700">Recursive</text>
+      <text x="520" y="75" font-family="monospace" font-size="8" fill="#666" text-anchor="middle">Hash ← Parent ← Merkle</text>
+    </g>
+
+    <!-- Step 5: Mint -->
+    <g class="step" style="animation-delay: 0.4s;">
+      <rect x="580" y="80" width="70" height="60" rx="8" fill="#1a1a2e" stroke="#FF6B6B" stroke-width="2" />
+      <text x="615" y="104" font-family="monospace" font-size="14" fill="#FF6B6B" text-anchor="middle">🏷️</text>
+      <text x="615" y="130" class="node-text" fill="#FF6B6B">Mint</text>
+      <text x="655" y="75" font-family="monospace" font-size="8" fill="#666" text-anchor="middle">Passport NFT</text>
+    </g>
+
+    <!-- Step 6: Verify -->
+    <g class="step" style="animation-delay: 0.5s;">
+      <rect x="715" y="80" width="65" height="60" rx="8" fill="#1a1a2e" stroke="#14F195" stroke-width="2" />
+      <text x="748" y="104" font-family="monospace" font-size="14" fill="#14F195" text-anchor="middle">✓</text>
+      <text x="748" y="130" class="node-text" fill="#14F195">Verify</text>
+      <text x="763" y="75" font-family="monospace" font-size="8" fill="#666" text-anchor="middle">On-chain</text>
+    </g>
+
+    <!-- Bottom annotation -->
+    <text x="400" y="200" font-family="monospace" font-size="10" fill="#555" text-anchor="middle">
+      ⬆ Each step feeds the next — recursive hashes chain together via Merkle proofs
+    </text>
+
+    <!-- Registers below pipeline -->
+    <text x="400" y="235" font-family="monospace" font-size="11" fill="#888" text-anchor="middle">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
+      Agent → <tspan fill="#9945FF">Metaplex Registry</tspan> → <tspan fill="#FF6B6B">x402.wtf</tspan> → On-chain PDA
+    </text>
+
+    <!-- x402 bridge graphic -->
+    <line x1="400" y1="248" x2="400" y2="260" stroke="#FF6B6B" stroke-width="1" opacity="0.5" />
+    <text x="400" y="272" font-family="monospace" font-size="8" fill="#FF6B6B" text-anchor="middle" opacity="0.6">
+      HTTP 402 Payments · Agent Tokens · Genesis Bonding Curves
+    </text>
+  </svg>
 </p>
 
 ---
 
-## TABLE OF CONTENTS
-
-- [WHAT'S NEW IN 1.1.0](#whats-new-in-110)
-- [CLAWD RWA — Tokenized AI Model](#clawd-rwa--tokenized-ai-model)
-- [INSTALL](#install)
-- [QUICK START](#quick-start)
-- [GACHA SYSTEM](#gacha-system)
-- [AGENT TEMPLATES](#agent-templates)
-- [x402 PAYMENT PROTOCOL](#x402-payment-protocol)
-- [METAPLEX AGENT REGISTRY](#metaplex-agent-registry)
-- [PIPELINE](#pipeline)
-- [ON-CHAIN VERIFICATION](#on-chain-verification)
-- [ARCHITECTURE](#architecture)
-- [CONTRIBUTE](#contribute)
-
----
-
-## WHAT'S NEW IN 1.1.0
+## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    v 1 . 1 . 0   C H A N G E L O G                  │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  ✦  x402 Payment Protocol Integration                               │
-│     HTTP 402 payment-gated agent endpoints on Solana               │
-│     X402Client · build402Response · registerAgentsOnX402           │
-│                                                                     │
-│  ✦  Metaplex Agent Registry (EIP-8004)                              │
-│     mintAndSubmitAgent · registerIdentityV1 · AgentDocumentBuilder  │
-│     AgentIdentityV2 PDA · lifecycle hooks (Transfer/Update/Execute) │
-│                                                                     │
-│  ✦  Clawd RWA — World's First Tokenized AI Model                    │
-│     MPL Core NFT = AI model   →   $CLAWD bonding curve token        │
-│     setAgentTokenV1 permanent binding · Asset Signer PDA treasury   │
-│     x402 inference gating · EIP-8004 agent document                 │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                     AGENTIC CANDY MACHINE                        │
+│                                                                  │
+│  ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌───────────────┐   │
+│  │   DNA   │───│   Art   │───│  Token  │───│ Candy Machine │   │
+│  │ Builder │   │Pipeline │   │ Builder │   │   Builder     │   │
+│  │         │   │         │   │         │   │               │   │
+│  │ Traits  │   │ Prompts │   │ Mint    │   │ Guards        │   │
+│  │ Tier    │   │ Styles  │   │ Metadata│   │ Config Lines  │   │
+│  │ Caps    │   │ Images  │   │ Exts    │   │ Hidden        │   │
+│  └────┬────┘   └────┬────┘   └────┬────┘   └───────┬───────┘   │
+│       │              │              │                │           │
+│       └──────────────┴──────────────┴────────────────┘           │
+│                             │                                    │
+│                    ┌────────▼────────┐                           │
+│                    │   Recursive     │                           │
+│                    │ Metadata Builder│                           │
+│                    │                 │                           │
+│                    │ Hash ← Parent   │                           │
+│                    │ Merkle Paths    │                           │
+│                    │ Composition     │                           │
+│                    └────────┬────────┘                           │
+│                             │                                    │
+│                    ┌────────▼────────┐                           │
+│                    │    Passport     │                           │
+│                    │    Factory      │                           │
+│                    │                 │                           │
+│                    │ Bundle → Mint   │                           │
+│                    │ Verify on-chain │                           │
+│                    └────────┬────────┘                           │
+│                             │                                    │
+│               ┌─────────────┼─────────────┐                     │
+│               │             │             │                     │
+│        ┌──────▼──────┐ ┌───▼────┐ ┌──────▼──────┐              │
+│        │ Metaplex    │ │  TEE   │ │   x402.wtf  │              │
+│        │ Registry    │ │Attest  │ │  Payments   │              │
+│        │ AgentIdentity│ │        │ │  HTTP 402   │              │
+│        └─────────────┘ └────────┘ └─────────────┘              │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
----
+## Modules
 
-## CLAWD RWA — Tokenized AI Model
+| Module | Export | What It Does |
+|--------|--------|---------------|
+| **DNA** | `DNABuilder`, `DNAEncoder`, `diffDNA` | Build agent trait vectors, encode on-chain DNA, compute rarity scores |
+| **Art** | `ArtPipeline`, `PROMPT_TEMPLATES` | Generate AI art from DNA traits with style templating |
+| **Token** | `TokenBuilder`, `TokenDeployer` | Create SPL tokens with metadata extensions (Token-2022) |
+| **Candy Machine** | `CandyMachineBuilder`, `GuardBuilder` | Configure and deploy Metaplex Core candy machines with guard sets |
+| **Recursive** | `RecursiveMetadataBuilder`, `MerkleTree` | Build recursive NFT metadata chains, compute self-hash, verify Merkle proofs |
+| **Passport** | `PassportFactory` | Assemble full NFT passport bundles and deploy end-to-end |
+| **Attestation** | `AttestationService`, `TEETerminal` | Record TEE attestations, verify proofs, build Merkle trees of attestations |
+| **Gacha** | `GachaPoolBuilder`, `ProvablyFairRoller` | Provably-fair rarity rolling with commitment schemes |
+| **Agent Template** | `AgentTemplateBuilder`, `NEON_PROTOCOL_AGENTS` | Pre-built agent templates mapped to token tiers, NFT metadata, and registry links |
+| **x402** | `X402Client`, `build402Response` | Payment-gated agent endpoints on x402.wtf (HTTP 402) |
+| **Metaplex Agent** | `MetaplexAgentApiClient`, `buildEip8004Document` | Register agents on Metaplex, build EIP-8004 documents |
+| **Clawd RWA** | `ClaWdRwaBuilder`, `createModelRwa` | Tokenized AI model as MPL Core asset — NFT = model, bound to agent + token |
 
-> **The world's first Real-World Asset tokenization of an AI model on Solana.**
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                  C L A W D   R W A   S T A C K                          │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│   ┌──────────────────┐    setAgentTokenV1    ┌──────────────────────┐  │
-│   │  ClawdModel NFT  │ ◀─────────────────── │   $CLAWD Token       │  │
-│   │  MPL Core Asset  │    (permanent, ∞)     │   Genesis Bonding    │  │
-│   │  AgentIdentityV2 │                       │   Curve → Raydium    │  │
-│   └────────┬─────────┘                       └──────────────────────┘  │
-│            │                                                            │
-│            ▼  ["mpl-core-execute", asset]                               │
-│   ┌──────────────────┐    x402 (HTTP 402)    ┌──────────────────────┐  │
-│   │  Asset Signer    │ ◀─────────────────── │  Inference Callers   │  │
-│   │  PDA Treasury    │   0.10 USDC/call      │  pay per inference   │  │
-│   │  No Private Key  │                       │  x402.wtf/agents/    │  │
-│   └──────────────────┘                       └──────────────────────┘  │
-│                                                                         │
-│   HOLD $CLAWD → fee revenue share from every inference call             │
-│   HOLD NFT    → agent governance + treasury control                     │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
-```typescript
-import {
-  ClaWdRwaBuilder, CLAWD_MODEL_STACK,
-  X402Client,
-} from "@openclawdsol/agentic-candy-machine-sdk";
-
-// Use the canonical Clawd stack (Claude Sonnet 4.6 on Solana)
-const bundle = CLAWD_MODEL_STACK.build("YOUR_WALLET_ADDRESS");
-
-// Or define your own tokenized AI model
-const myModelBundle = new ClaWdRwaBuilder()
-  .name("MyModel")
-  .model({
-    provider: "anthropic",
-    modelId: "claude-sonnet-4-6",
-    contextWindow: 200_000,
-    modalities: ["text", "code", "image"],
-    accessMethod: "x402",
-    inferenceEndpoint: "https://x402.wtf/agents/mymodel/infer",
-  })
-  .token("MyModel Token", "MYMDL", 2.5)
-  .agent("mymodel", "Autonomous AI inference agent on Solana")
-  .inferencePrice("USDC", 100_000)  // 0.10 USDC per inference
-  .build("YOUR_WALLET_ADDRESS");
-
-// Launch with CLI
-console.log(bundle.cliCommands.join("\n"));
-
-// Or use the full SDK snippet
-console.log(bundle.sdkSnippet);
-```
-
-### Clawd + $CLAWD + SPL Token Binding
-
-```typescript
-import {
-  ClaWdRwaBuilder,
-  X402Client, registerAgentsOnX402,
-  AgentDocumentBuilder,
-} from "@openclawdsol/agentic-candy-machine-sdk";
-
-const bundle = new ClaWdRwaBuilder()
-  .name("Clawd")
-  .model({ provider: "anthropic", modelId: "claude-sonnet-4-6", accessMethod: "x402" })
-  .token("Clawd Token", "CLAWD", 2.5)
-  .agent("clawd", "Claude Sonnet on Solana — pay per inference via x402")
-  .inferencePrice("USDC", 100_000)
-
-  // Bind additional SPL tokens (e.g. access tiers)
-  .bindSplToken({
-    mint: "CLAWD_MINT_ADDRESS",
-    symbol: "CLAWD",
-    role: "fee-sharing",
-    requiredHolding: 1000,
-  })
-  .bindSplToken({
-    mint: "USDC_MINT",
-    symbol: "USDC",
-    role: "utility",  // payment token for inference
-  })
-  .build("YOUR_WALLET_ADDRESS");
-
-// EIP-8004 agent document (upload to Arweave)
-console.log(JSON.stringify(bundle.agentDocument, null, 2));
-
-// NFT metadata (upload to Arweave, use URI when minting)
-console.log(JSON.stringify(bundle.nftMetadata, null, 2));
-
-// Mint + launch via CLI (one command each)
-bundle.cliCommands.forEach(cmd => console.log(cmd));
-```
-
----
-
-## INSTALL
+## Quick Start
 
 ```bash
 npm install @openclawdsol/agentic-candy-machine-sdk
 ```
 
-Peer dependency:
-```bash
-npm install @solana/web3.js
-```
+```ts
+import { AgenticCandyMachineSDK } from "@openclawdsol/agentic-candy-machine-sdk";
 
-For full Metaplex agent minting (on-chain):
-```bash
-npm install @metaplex-foundation/mpl-agent-registry \
-            @metaplex-foundation/umi \
-            @metaplex-foundation/umi-bundle-defaults
-```
-
----
-
-## QUICK START
-
-```typescript
-import {
-  AgenticCandyMachineSDK,
-  GachaPoolBuilder, GachaEngine,
-  NEON_PROTOCOL_AGENTS,
-  X402Client,
-  ClaWdRwaBuilder,
-} from "@openclawdsol/agentic-candy-machine-sdk";
-import { Keypair } from "@solana/web3.js";
-
-// ── 1. Initialize SDK ──────────────────────────────────────────────────
 const sdk = new AgenticCandyMachineSDK({
   cluster: "devnet",
-  authority: Keypair.generate(),
-  redpillApiKey: process.env.REDPILL_API_KEY,
-  googleApiKey: process.env.GOOGLE_API_KEY,
+  rpcUrl: process.env.SOLANA_RPC_URL,
 });
 
-// ── 2. Provably fair gacha roll ────────────────────────────────────────
-const pool = new GachaPoolBuilder()
-  .name("Neon Protocol // Genesis Drop")
-  .publicEntropy("SOLANA_GENESIS_2026")
+// 1. Build the DNA
+const dna = sdk.dna
+  .setName("Clawd Alpha")
+  .setTier("elite")
+  .addCapability("trading")
+  .addCapability("defi")
+  .setRarityFactor(95)
   .build();
 
-NEON_PROTOCOL_AGENTS.forEach(agent =>
-  pool.items.push({
-    id: agent.id, type: "agent_template",
-    dna: agent.dna as any, rarity: agent.rarity,
-    metadata: agent.metadata,
-  })
-);
-
-const engine  = new GachaEngine(sdk.attestation);
-const roll    = await engine.executeRoll(pool, "user-seed", "BLOCKHASH", "SOVEREIGN");
-console.log(`Summoned: ${roll.poolItem.dna?.name} | ${roll.rarity}`);
-
-// ── 3. Full 7-phase pipeline ───────────────────────────────────────────
-const result = await sdk.pipeline({
-  dna: roll.poolItem.dna!,
-  art: { style: "cyberpunk", provider: "google" },
-  token: { name: `${roll.poolItem.dna!.name} Token`, symbol: "AGNT", decimals: 9, initialSupply: 1_000_000n },
-  options: { dryRun: true },
+// 2. Generate art from DNA traits
+const art = await sdk.art.generate({
+  dna,
+  style: "cyberpunk-grid",
+  width: 1024,
+  height: 1024,
 });
 
-// ── 4. Register on x402.wtf ────────────────────────────────────────────
-const x402    = new X402Client();
-const regUrl  = x402.agentUrl(roll.poolItem.dna!.handle!);
-console.log(`x402 registry: ${regUrl}`);
-```
+// 3. Create a token
+const token = await sdk.token
+  .setName("CLW")
+  .setSymbol("CLW")
+  .setDecimals(6)
+  .setImage(art.uri)
+  .deploy();
 
----
+// 4. Build a Candy Machine
+const cm = await sdk.candyMachine
+  .setPrice(0.5)                 // SOL
+  .setItemsAvailable(1000)
+  .addGuard("solPayment")
+  .addGuard("startDate")
+  .setCreators([{ address: treasury, share: 100 }])
+  .deploy();
 
-## GACHA SYSTEM
+// 5. Add items with recursive metadata
+await sdk.recursive
+  .setCandyMachine(cm.address)
+  .addItem({ dna, art, token })
+  .mine({ type: "sequential" });
 
-```
-    ┌──────────────────────────────────────────────────────┐
-    │           P R O V A B L Y   F A I R   G A C H A      │
-    ├──────────────────────────────────────────────────────┤
-    │                                                      │
-    │  ① SERVER commits  → sha256(commitment)              │
-    │  ② CLIENT provides → combined entropy                │
-    │  ③ ROLL executed   → weighted random selection       │
-    │  ④ ATTESTED        → TEE Merkle proof on-chain       │
-    │  ⑤ SEED revealed   → anyone can verify               │
-    │  ⑥ VERIFY          → GachaEngine.verifyRoll()        │
-    │                                                      │
-    │  TRUST NO ONE. VERIFY EVERYTHING.                    │
-    └──────────────────────────────────────────────────────┘
-```
-
-| Rarity | Weight | Odds | Boost | Color |
-|--------|--------|------|-------|-------|
-| `MYTHIC` | 50 | 0.50% | 3.00x | `#FF00FF` |
-| `LEGENDARY` | 250 | 2.50% | 2.00x | `#FFD700` |
-| `EPIC` | 700 | 7.00% | 1.60x | `#FF6B35` |
-| `RARE` | 1500 | 15.00% | 1.35x | `#9945FF` |
-| `UNCOMMON` | 2500 | 25.00% | 1.15x | `#14F195` |
-| `COMMON` | 5000 | 50.00% | 1.00x | `#888888` |
-
-| Tier | Boost | Mythic Odds |
-|------|-------|-------------|
-| Observer | 1.00x | 0.50% |
-| Agent | 1.05x | 0.53% |
-| Operator | 1.10x | 0.55% |
-| Sovereign | 1.20x | 0.60% |
-
-```typescript
-const result = GachaEngine.verifyRoll(
-  poolHash, serverSeed, clientSeed, nonce, blockhash,
-  expectedHash, expectedRarity, poolItems,
-);
-console.log(result.valid);    // true → fair
-console.log(result.details);  // full breakdown
-```
-
----
-
-## AGENT TEMPLATES
-
-```
-    ┌──────────────────────────────────────────────────────────────┐
-    │           N E O N   P R O T O C O L   C A T A L O G          │
-    ├──────────────────────────────────────────────────────────────┤
-    │                                                              │
-    │  OBSERVER   ░▒▓ GhostWalker · ByteWatcher                   │
-    │  AGENT      ░▒▓ ByteStriker · SynthWeaver                   │
-    │  OPERATOR   ░▒▓ NeonOracle  · PulseRunner · CipherMancer    │
-    │  SOVEREIGN  ░▒▓ ChromeSamurai · NetherDragon · TheArchitect │
-    │                                                              │
-    └──────────────────────────────────────────────────────────────┘
-```
-
-```typescript
-import {
-  AgentTemplateBuilder, NEON_PROTOCOL_AGENTS,
-  templateToNFTMetadata, generateRegistryLinks,
-} from "@openclawdsol/agentic-candy-machine-sdk";
-
-const agent = new AgentTemplateBuilder()
-  .name("VoidWalker").handle("voidwalker")
-  .bio("Navigates the dark pools of Solana DeFi")
-  .tier("SOVEREIGN").rarity("LEGENDARY")
-  .faction("Void Syndicate").neonColor("#FF00FF").glitchEffect(true)
-  .addCapability("trade", { dex: "jupiter", mode: "dark_pool" })
-  .build();
-
-const metadata = templateToNFTMetadata(
-  agent,
-  "https://arweave.net/art.png",
-  "https://attest.agentic-candy.xyz/proof/voidwalker",
-  "https://x402.wtf/agents/voidwalker",
-);
-
-const links = generateRegistryLinks(agent);
-// → metaplex, google, x402.wtf/agents/voidwalker, solscan
-```
-
----
-
-## x402 PAYMENT PROTOCOL
-
-```
-    ┌──────────────────────────────────────────────────────────────┐
-    │            H T T P   4 0 2   P A Y M E N T                    │
-    ├──────────────────────────────────────────────────────────────┤
-    │                                                              │
-    │  Client ──▶ POST /agents/clawd/infer                         │
-    │  Server ◀── 402 Payment Required                             │
-    │             { x402 challenge, payTo, amount: 0.10 USDC }     │
-    │  Client ──▶ pays on-chain → provides payment proof           │
-    │  Server ◀── 200 OK { inference result }                      │
-    │                                                              │
-    │  Registry: x402.wtf/agents/{handle}                          │
-    │                                                              │
-    └──────────────────────────────────────────────────────────────┘
-```
-
-```typescript
-import {
-  X402Client, build402Response,
-  registerAgentsOnX402,
-} from "@openclawdsol/agentic-candy-machine-sdk";
-
-const client = new X402Client({ apiKey: process.env.X402_API_KEY });
-
-// Register agents on x402.wtf
-const registrations = await registerAgentsOnX402(
-  NEON_PROTOCOL_AGENTS,
-  "YOUR_SOLANA_WALLET",
-  { network: "solana-mainnet" },
-);
-
-// Build an HTTP 402 challenge for your API route
-const endpoint = {
-  path: "/agents/clawd/infer",
-  method: "POST" as const,
-  description: "Clawd inference call",
-  price: { token: "USDC" as const, amount: 100_000, recipient: "...", network: "solana-mainnet" as const },
-};
-
-const response = build402Response("clawd", endpoint, "https://x402.wtf/agents/clawd/infer");
-// response.status === 402
-// response.body === x402 payment challenge (JSON)
-
-// Verify registration
-const verified = await client.verify("clawd");
-console.log(verified.valid, verified.registryUrl);
-```
-
----
-
-## METAPLEX AGENT REGISTRY
-
-```
-    ┌──────────────────────────────────────────────────────────────┐
-    │        M E T A P L E X   A G E N T   R E G I S T R Y         │
-    ├──────────────────────────────────────────────────────────────┤
-    │                                                              │
-    │  mintAndSubmitAgent()  →  MPL Core NFT + AgentIdentityV2    │
-    │  registerIdentityV1()  →  bind identity to existing asset   │
-    │  setAgentTokenV1()     →  permanent agent↔token binding     │
-    │  createAndRegisterLaunch() → bonding curve + token binding  │
-    │                                                              │
-    │  EIP-8004 off-chain document:                                │
-    │  { type, name, services, registrations, supportedTrust }    │
-    │                                                              │
-    └──────────────────────────────────────────────────────────────┘
-```
-
-```typescript
-import {
-  AgentDocumentBuilder, buildEip8004Document,
-  MetaplexAgentApiClient,
-  NEON_PROTOCOL_AGENTS,
-} from "@openclawdsol/agentic-candy-machine-sdk";
-
-// Build an EIP-8004 registration document
-const doc = buildEip8004Document(NEON_PROTOCOL_AGENTS[0], {
-  agentEndpoint: "https://x402.wtf/agents/ghostwalker",
-  x402Url: "https://x402.wtf/agents/ghostwalker",
-  imageUri: "https://arweave.net/ghostwalker.png",
+// 6. On-chain attestation
+const attestation = await sdk.attestation.record({
+  assetId: dna.id,
+  teeEvidence: "-----BEGIN TEE-----...",
 });
 
-// Upload doc to Arweave, then mint:
-// import { mintAndSubmitAgent } from '@metaplex-foundation/mpl-agent-registry'
-// const { assetAddress } = await mintAndSubmitAgent(umi, {}, {
-//   wallet: umi.identity.publicKey,
-//   uri: "<ARWEAVE_NFT_METADATA_URI>",
-//   agentMetadata: { type: "agent", name: doc.name, ... },
-// });
+// 7. Register on x402.wtf
+import { x402 } from "@openclawdsol/agentic-candy-machine-sdk";
+
+const agentTemplate = { handle: "clawd-alpha", name: "Clawd Alpha", /* ... */ };
+const reg = await x402.register(agentTemplate, paymentAddress);
+console.log("x402 agent URL:", reg.registryUrl);
+
+// 8. Register on Metaplex Agent Registry
+import { buildEip8004Document } from "@openclawdsol/agentic-candy-machine-sdk";
+
+const eipDoc = buildEip8004Document(agentTemplate, {
+  agentEndpoint: "https://myagent.ai",
+  x402Url: `https://x402.wtf/agents/clawd-alpha`,
+});
+console.log("EIP-8004 doc:", eipDoc);
 ```
 
----
+## x402.wtf Integration
 
-## PIPELINE
+The SDK includes a first-class **x402 Payment Protocol** client. Every agent registered through the SDK can monetize its capabilities via HTTP 402 micropayments.
 
-```typescript
-const result = await sdk.pipeline({
-  // Phase 1: DNA  — Agent identity genesis
-  dna: { name: "Agent", handle: "agent", ... },
-  // Phase 2: Art  — Cyberpunk portrait generation
-  art: { style: "cyberpunk", provider: "google" },
-  // Phase 3: Token — SPL Token-2022 creation
-  token: { name: "Token", symbol: "AGNT", decimals: 9, initialSupply: 1_000_000n },
-  // Phase 5: Candy Machine — Metaplex deployment
-  candyMachine: { itemsAvailable: 1000 },
-  // Phase 6: Recursive — Composability tree
-  recursion: { maxDepth: 5 },
-  // Phase 7: Attestation — auto-attested each phase
+```ts
+import { X402Client, build402Response } from "@openclawdsol/agentic-candy-machine-sdk";
+
+const x402Client = new X402Client({ apiKey: process.env.X402_API_KEY });
+
+// Register agent endpoints with pay-per-use pricing
+const endpoints = [
+  {
+    path: "/agents/my-agent/query",
+    method: "POST",
+    description: "Blockchain intelligence query",
+    price: { token: "USDC", amount: 100_000, recipient: myWallet, network: "solana-mainnet" },
+    rateLimit: { requests: 10, windowSeconds: 60 },
+  },
+];
+
+const registration = await x402Client.register(agentTemplate, myWallet, endpoints);
+console.log(`Agent live at ${registration.registryUrl}`);
+
+// In your Express / Next.js route handler — return HTTP 402 for unpaid requests
+app.post("/agents/my-agent/query", (req, res) => {
+  if (!req.headers["x-payment-receipt"]) {
+    const { status, headers, body } = build402Response("my-agent", endpoints[0], req.url);
+    return res.status(status).set(headers).json(body);
+  }
+  // Process the paid request...
+});
+```
+
+### Payment Flow
+
+```
+┌─────────┐      ┌──────────────┐      ┌───────────┐
+│  Client  │──────│  x402.wtf    │──────│  Solana   │
+│          │      │  Gateway     │      │  USDC tx  │
+└────┬─────┘      └──────┬───────┘      └─────┬─────┘
+     │ GET /api/agents    │                     │
+     │───────────────────▶│                     │
+     │                    │                     │
+     │ 402 Payment Req'd  │                     │
+     │◀───────────────────│                     │
+     │                    │                     │
+     │ USDC Payment ───────────────────────────▶│
+     │                    │                     │
+     │ X-Payment-Receipt  │                     │
+     │───────────────────▶│                     │
+     │                    │ Verify on-chain     │
+     │                    │────────────────────▶│
+     │                    │                     │
+     │ 200 OK + Response  │                     │
+     │◀───────────────────│                     │
+```
+
+## Tokenized AI Model — Clawd RWA
+
+The SDK ships the **world's first tokenized AI model as an MPL Core asset**:
+
+```ts
+import { createModelRwa, CLAWD_MODEL_STACK } from "@openclawdsol/agentic-candy-machine-sdk";
+
+const rwa = createModelRwa({
+  name: "Clawd Alpha",
+  symbol: "CLAWD",
+  description: "Autonomous trading agent powered by Claude Sonnet 4",
+  model: {
+    provider: "anthropic",
+    modelId: "claude-sonnet-4-6",
+    paramCount: "unknown",
+    contextWindow: 200000,
+    modalities: ["text", "code", "image"],
+    capabilities: ["defi-trading", "market-analysis", "yield-optimization"],
+    accessMethod: "x402",
+  },
+  tokenName: "Clawd Token",
+  tokenSymbol: "CLAWD",
+  creatorFeePercent: 2.5,
+  agentHandle: "clawd-alpha",
+  agentBio: "Autonomous DeFi trading specialist",
+  paymentAddress: "ClawdEs...PDAPubkey",
+  // Optional: bind other SPL tokens to the model
+  boundTokens: [
+    { mint: "EPjFW...USDC", name: "USDC", symbol: "USDC", amount: 50_000, pctOfSupply: 5 },
+  ],
 });
 
-sdk.on("pipeline:phase",       ({ data }) => console.log(`⚡ ${data.phase}`));
-sdk.on("gacha:rolled",         ({ data }) => console.log(`🎰 ${data.rarity}`));
-sdk.on("attestation:created",  ({ data }) => console.log(`🔐 ${data.id}`));
-sdk.on("candy-machine:minted", () => console.log(`🍬 Minted`));
+// rwa now contains:
+//   rwa.modelNFT      → Metaplex Core asset metadata (the model IS the NFT)
+//   rwa.agentBinding   → AgentIdentityV2 PDA + Asset Signer
+//   rwa.tokenBinding   → CLAWD bonding curve + setAgentTokenV1
+//   rwa.x402Endpoints  → Payment-gated inference URLs
+//   rwa.eip8004Doc     → EIP-8004 registration document
 ```
 
----
-
-## ON-CHAIN VERIFICATION
+### Clawd Model Stack
 
 ```
-    ┌────────────────────────────────────────────────────────────────┐
-    │              V E R I F I C A T I O N   C H A I N               │
-    ├────────────────────────────────────────────────────────────────┤
-    │                                                                │
-    │  ┌──────────────┐   ┌──────────────┐   ┌───────────────────┐  │
-    │  │   METAPLEX   │──▶│    GOOGLE    │──▶│     x402.wtf      │  │
-    │  │   VERIFIED   │   │   ATTESTED   │   │    REGISTERED     │  │
-    │  │  Core Asset  │   │ TEE Merkle   │   │   Agent Registry  │  │
-    │  └──────────────┘   └──────────────┘   └───────────────────┘  │
-    │         │                  │                    │              │
-    │         ▼                  ▼                    ▼              │
-    │    Solana NFT         TEE Attestation     x402 Pay-Gate        │
-    │  Programmable NF      SHA-256 Proof       x402.wtf/agents      │
-    │                                                                │
-    │  CLAWD RWA additionally:                                       │
-    │  • AgentIdentityV2 PDA  (seeds: ["agent_identity", asset])    │
-    │  • setAgentTokenV1      (permanent $CLAWD binding)             │
-    │  • Asset Signer PDA     (seeds: ["mpl-core-execute", asset])  │
-    │  • Genesis bonding curve → Raydium CPMM graduation            │
-    └────────────────────────────────────────────────────────────────┘
+          ┌─────────────────────────┐
+          │   ClawdModel NFT        │  ← MPL Core asset (the AI model)
+          │   (Metaplex Core)       │
+          └───────────┬─────────────┘
+                      │
+          ┌───────────▼─────────────┐
+          │   AgentIdentityV2 PDA   │  ← On-chain agent identity
+          │   (mpl-agent-identity)  │
+          └───────────┬─────────────┘
+                      │
+          ┌───────────▼─────────────┐
+          │   CLAWD Token           │  ← Genesis bonding curve
+          │   setAgentTokenV1       │     bound permanently to agent
+          └───────────┬─────────────┘
+                      │
+          ┌───────────▼─────────────┐
+          │   Asset Signer PDA      │  ← Treasury (no private key)
+          │   ["mpl-core-execute"]  │     controlled by Execute hook
+          └───────────┬─────────────┘
+                      │
+          ┌───────────▼─────────────┐
+          │   x402.wtf Endpoints    │  ← HTTP 402 pay-per-inference
+          │   /infer  /chat  /trade │
+          └─────────────────────────┘
 ```
 
-| Registry | Endpoint | Proves |
-|----------|----------|--------|
-| Metaplex | `explorer.solana.com/address/{mint}` | NFT ownership & AgentIdentityV2 |
-| Google | `console.cloud.google.com/vertex-ai` | TEE model attestation |
-| x402.wtf | `x402.wtf/agents/{handle}` | Payment-gated agent registry |
-| Solscan | `solscan.io/token/{mint}` | Token + bonding curve |
-| Gacha | `attest.agentic-candy.xyz/verify/{id}` | Provably fair roll proof |
+## Attestation & TEE
 
----
+All passports support **TEE (Trusted Execution Environment) attestation** for verifiable off-chain computation. The SDK records attestation signatures on-chain and builds Merkle trees for batch verification.
 
-## ARCHITECTURE
+```ts
+import { AttestationService } from "@openclawdsol/agentic-candy-machine-sdk";
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    AgenticCandyMachineSDK  v1.1.0                       │
-├──────┬───────┬────────┬────────┬─────────┬───────────┬─────────────────┤
-│ 🧬   │ 🎨   │ 🪙     │ 🎰     │ 🍬      │ ♾️        │ 🛂             │
-│ DNA  │ Art  │ Token  │ Gacha  │ Candy   │ Recursive │ Passport        │
-├──────┴───────┴────────┴────────┴─────────┴───────────┴─────────────────┤
-│  🤖  Metaplex Agent Registry  (EIP-8004 · mintAndSubmitAgent)           │
-├─────────────────────────────────────────────────────────────────────────┤
-│  💳  x402 Payment Protocol  (HTTP 402 · x402.wtf · USDC/SOL)           │
-├─────────────────────────────────────────────────────────────────────────┤
-│  🌐  Clawd RWA  (Tokenized AI Model · $CLAWD · setAgentTokenV1)        │
-├─────────────────────────────────────────────────────────────────────────┤
-│  🛡️  Attestation Service  (TEE · Merkle Proofs · Ed25519)               │
-├─────────────────────────────────────────────────────────────────────────┤
-│  Metaplex Core ✅ · Google 🔐 · x402.wtf 💳 · Raydium CPMM 📈         │
-├─────────────────────────────────────────────────────────────────────────┤
-│  Solana · Token-2022 · RedPill TEE · Google Vertex AI · Genesis        │
-└─────────────────────────────────────────────────────────────────────────┘
+const attestation = await sdk.attestation.record({
+  assetId: dna.id,
+  teeEvidence: teeProof.signature,
+  merkleRoot: tree.getRoot(),
+  proofPath: tree.getProof(dna.id),
+});
 ```
 
-```
-src/
-├── index.ts                       # Main exports
-├── core/client.ts                 # AgenticCandyMachineSDK
-├── modules/
-│   ├── dna/                       # 🧬 AgentDNA + DNAEncoder
-│   ├── art/                       # 🎨 ArtPipeline
-│   ├── token/                     # 🪙 TokenBuilder + TokenDeployer
-│   ├── gacha/                     # 🎰 ProvablyFairRoller + GachaEngine
-│   ├── agent-template/            # 🤖 AgentTemplateBuilder + NEON_PROTOCOL_AGENTS
-│   ├── candy-machine/             # 🍬 CandyMachineClient
-│   ├── recursive/                 # ♾️  RecursiveMetadataBuilder
-│   ├── passport/                  # 🛂 PassportFactory
-│   ├── attestation/               # 🛡️  AttestationService + TEETerminal
-│   ├── x402/           ← NEW      # 💳 X402Client · HTTP 402 gating
-│   ├── metaplex-agent/ ← NEW      # 🤖 EIP-8004 · AgentDocumentBuilder
-│   └── clawd-rwa/      ← NEW      # 🌐 Tokenized AI Model · $CLAWD
-├── types/index.ts
-└── utils/index.ts
-```
+## Recursive NFT Composition
 
----
-
-## CONTRIBUTE
+Passports compose hierarchically — child NFTs embed parent hashes and Merkle paths for on-chain verifiability.
 
 ```
-    ╔═══════════════════════════════════════════════════════════╗
-    ║       J O I N   T H E   N E O N   P R O T O C O L        ║
-    ╚═══════════════════════════════════════════════════════════╝
+Root Passport
+  ├── Tier: Legendary
+  ├── DNA Hash: 0xabc...
+  ├── Trait Vector: [0x1f, 0x3a, ...]
+  ├── Merkle Root: 0xdef...
+  │
+  ├──▶ Agent NFT (child)
+  │     ├── Parent Hash: 0xabc...
+  │     ├── Merkle Path: [0x...]
+  │     └── Agent Data...
+  │
+  └──▶ Token NFT (child)
+        ├── Parent Hash: 0xabc...
+        ├── Merkle Path: [0x...]
+        └── Token Data...
 ```
+
+## Package Exports
+
+```json
+{
+  ".": "./dist/esm/index.js",
+  "./dna": "./dist/esm/modules/dna/index.js",
+  "./art": "./dist/esm/modules/art/index.js",
+  "./token": "./dist/esm/modules/token/index.js",
+  "./candy-machine": "./dist/esm/modules/candy-machine/index.js",
+  "./recursive": "./dist/esm/modules/recursive/index.js",
+  "./passport": "./dist/esm/modules/passport/index.js",
+  "./attestation": "./dist/esm/modules/attestation/index.js",
+  "./x402": "./dist/esm/modules/x402/index.js",
+  "./metaplex-agent": "./dist/esm/modules/metaplex-agent/index.js",
+  "./clawd-rwa": "./dist/esm/modules/clawd-rwa/index.js"
+}
+```
+
+Tree-shake what you need:
+
+```ts
+import { DNABuilder } from "@openclawdsol/agentic-candy-machine-sdk/dna";
+import { X402Client } from "@openclawdsol/agentic-candy-machine-sdk/x402";
+import { createModelRwa } from "@openclawdsol/agentic-candy-machine-sdk/clawd-rwa";
+```
+
+## Environment Variables
+
+Copy `.env.example` to `.env`:
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `SOLANA_RPC_URL` | Yes | Solana RPC endpoint |
+| `SOLANA_PRIVATE_KEY` | Optional | Base58 private key for CI/CD |
+| `SOLANA_KEYPAIR_PATH` | Optional | Path to keypair JSON file |
+| `X402_API_KEY` | Optional | x402.wtf API key for agent registration |
+| `X402_BASE_URL` | Optional | Custom x402 registry base URL |
+| `METAPLEX_API_URL` | Optional | Metaplex API base URL |
+
+## Development
 
 ```bash
 git clone https://github.com/Solizardking/AgenticCandymachine.git
-cd AgenticCandymachine && npm install && npm run build && npm test
+cd AgenticCandymachine
+npm install
+npm run build       # ESM + CJS + types
+npm run dev         # Watch mode
+npm run test        # Vitest
 ```
 
-| Registry | Link |
-|----------|------|
-| **GitHub** | [Solizardking/AgenticCandymachine](https://github.com/Solizardking/AgenticCandymachine) |
-| **npm** | [@openclawdsol/agentic-candy-machine-sdk](https://npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk) |
-| **x402.wtf** | [x402.wtf/agents](https://x402.wtf/agents) |
-| **Metaplex Agents** | [developers.metaplex.com/agents](https://developers.metaplex.com/agents) |
-| **Google Cloud** | [Vertex AI](https://cloud.google.com/vertex-ai) |
+## Links
 
----
+- **NPM**: [@openclawdsol/agentic-candy-machine-sdk](https://www.npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk)
+- **GitHub**: [Solizardking/AgenticCandymachine](https://github.com/Solizardking/AgenticCandymachine)
+- **x402.wtf**: [https://x402.wtf](https://x402.wtf) — HTTP 402 payment-gated agent registry
+- **Metaplex Agents**: [developers.metaplex.com/agents](https://developers.metaplex.com/agents)
+- **EIP-8004**: Agent Registration Schema
 
-<p align="center">
-  <strong>MIT License</strong> · Copyright © 2025–2026 <strong>8bit Labs</strong><br/>
-  <i>Trust nothing. Verify everything. Summon your agent. Tokenize the model.</i>
-</p>
+## License
+
+MIT © OpenClawd Solutions
