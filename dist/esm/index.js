@@ -24,6 +24,12 @@ export { AttestationService, TEETerminal } from "./modules/attestation/index.js"
 export { GachaPoolBuilder, ProvablyFairRoller, GachaEngine, RARITY_WEIGHTS, GACHA_PRESETS, } from "./modules/gacha/index.js";
 // ─── Agent Template Module ───────────────────────────────────────────────
 export { AgentTemplateBuilder, NEON_PROTOCOL_AGENTS, templatesToConfigLines, templateToNFTMetadata, generateRegistryLinks, } from "./modules/agent-template/index.js";
+// ─── x402 Payment Protocol ───────────────────────────────────────────────
+export { X402Client, x402, registerAgentsOnX402, build402Response, } from "./modules/x402/index.js";
+// ─── Metaplex Agent Registry ─────────────────────────────────────────────
+export { AgentDocumentBuilder, MetaplexAgentApiClient, metaplexAgentApi, buildEip8004Document, } from "./modules/metaplex-agent/index.js";
+// ─── Clawd RWA — Tokenized AI Model ──────────────────────────────────────
+export { ClaWdRwaBuilder, CLAWD_MODEL_STACK, createModelRwa, } from "./modules/clawd-rwa/index.js";
 // ─── Utilities ───────────────────────────────────────────────────────────
 export { sha256, sha384, sha256Bytes, hmacSha256, contentHash, dnaHash, traitVector, buildMerkleTree, getMerklePath, verifyMerklePath, buildPointerUri, parsePointerUri, validatePointer, getConnection, getBalance, getBalanceSol, requestAirdrop, sendAndConfirm, estimateRent, createMemoInstruction, findPDA, encodeString, isValidPublicKey, isValidKeypair, validateConfig, sleep, uuid, shortId, nowUnix, lamportsToSol, solToLamports, truncateAddress, chunk, POINTER_PREFIX, SCHEMA_VERSION, SCHEMA_ID, MAX_RECURSION_DEPTH, MEMO_PROGRAM_ID, TIER_DEFINITIONS, RPC_ENDPOINTS, } from "./utils/index.js";
 //# sourceMappingURL=index.js.map

@@ -1,6 +1,6 @@
 {
   "name": "@openclawdsol/agentic-candy-machine-sdk",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Full-stack SDK for Agentic Candy Machine — TEE-attested recursive NFT passports on Solana via Metaplex",
   "license": "MIT",
   "type": "module",
@@ -40,6 +40,18 @@
     "./attestation": {
       "import": "./dist/esm/modules/attestation/index.js",
       "require": "./dist/cjs/modules/attestation/index.js"
+    },
+    "./x402": {
+      "import": "./dist/esm/modules/x402/index.js",
+      "require": "./dist/cjs/modules/x402/index.js"
+    },
+    "./metaplex-agent": {
+      "import": "./dist/esm/modules/metaplex-agent/index.js",
+      "require": "./dist/cjs/modules/metaplex-agent/index.js"
+    },
+    "./clawd-rwa": {
+      "import": "./dist/esm/modules/clawd-rwa/index.js",
+      "require": "./dist/cjs/modules/clawd-rwa/index.js"
     }
   },
   "files": [
@@ -92,7 +104,14 @@
     "tee",
     "attestation",
     "passport",
-    "web3"
+    "web3",
+    "x402",
+    "http402",
+    "rwa",
+    "tokenized-ai",
+    "mpl-agent-registry",
+    "clawd",
+    "eip-8004"
   ],
   "repository": {
     "type": "git",

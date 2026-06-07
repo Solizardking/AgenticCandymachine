@@ -44,6 +44,34 @@ export {
   templatesToConfigLines, templateToNFTMetadata, generateRegistryLinks,
 } from "./modules/agent-template/index.js";
 
+// ─── x402 Payment Protocol ───────────────────────────────────────────────
+export {
+  X402Client, x402, registerAgentsOnX402, build402Response,
+} from "./modules/x402/index.js";
+export type {
+  X402PaymentToken, X402Network, X402PriceConfig, X402Endpoint,
+  X402AgentRegistration, X402PaymentChallenge, X402VerifyResult,
+} from "./modules/x402/index.js";
+
+// ─── Metaplex Agent Registry ─────────────────────────────────────────────
+export {
+  AgentDocumentBuilder, MetaplexAgentApiClient, metaplexAgentApi,
+  buildEip8004Document,
+} from "./modules/metaplex-agent/index.js";
+export type {
+  MetaplexNetwork, AgentService, AgentRegistration, AgentRegistrationDocument,
+  MetaplexAgentMintInput, MetaplexAgentMintResult,
+} from "./modules/metaplex-agent/index.js";
+
+// ─── Clawd RWA — Tokenized AI Model ──────────────────────────────────────
+export {
+  ClaWdRwaBuilder, CLAWD_MODEL_STACK, createModelRwa,
+} from "./modules/clawd-rwa/index.js";
+export type {
+  ModelProvider, InferenceAccess, ModelSpec, ClaWdModelConfig,
+  BoundSplToken, ClaWdModelNFTMetadata, AgentTokenBinding, ClaWdRwaBundle,
+} from "./modules/clawd-rwa/index.js";
+
 // ─── Utilities ───────────────────────────────────────────────────────────
 export {
   sha256, sha384, sha256Bytes, hmacSha256, contentHash, dnaHash, traitVector,
