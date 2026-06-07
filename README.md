@@ -76,6 +76,32 @@
 
 ---
 
+## Agentic Candy Machine SDK — Production-Ready & Published v1.1.0
+
+### What Was Done
+
+**1. Secrets Audit** — Zero exposed keys across all 13 modules. No `private_key`, `secret_key`, `mnemonic`, or `api_key` patterns found in any source file.
+
+**2. `.env.example` Created** — Comprehensive environment variable template with all supported config keys (`SOLANA_RPC_URL`, `SOLANA_PRIVATE_KEY`, `X402_API_KEY`, `METAPLEX_API_URL`, etc.), all optional where appropriate.
+
+**3. `.gitignore` Verified** — Already thorough (380 lines). Covers `.env`, keypairs, wallets, service accounts, Solana keypair files, API key JSONs, TEE attestations, strategy configs, databases, logs, and build artifacts.
+
+**4. x402.wtf Integration** — `src/modules/x402/index.ts` (330 lines): Full `X402Client` class with `register()`, `verify()`, `buildPaymentChallenge()`, `build402Response()` for Express/Next.js middleware. Singleton `x402` instance. Bulk registration helper `registerAgentsOnX402()`. Supports USDC, SOL, BONK, JUP payment tokens.
+
+**5. Metaplex Agent Registry Integration** — `src/modules/metaplex-agent/index.ts` (341 lines): `MetaplexAgentApiClient` wrapping the Metaplex API, `AgentDocumentBuilder` + `buildEip8004Document()` for EIP-8004 registration documents with x402 linking.
+
+**6. Clawd RWA** — `src/modules/clawd-rwa/index.ts` (463 lines): The world's first tokenized AI model as an MPL Core asset. Binds ClawdModel NFT → AgentIdentityV2 PDA → CLAWD Token (Genesis bonding curve) → Asset Signer PDA → x402 inference endpoints.
+
+**7. Main Index** — `src/index.ts` exports all 13 modules including `x402`, `metaplex-agent`, and `clawd-rwa` with both value exports and type exports.
+
+**8. Build** — Clean compilation: ESM + CJS + TypeScript declarations, zero errors. 83 files in dist across all three output formats.
+
+**9. Animated SVG README** — Complete pipeline visualization with animated gradient logo (pulsing circle, rotating hex), 6-step pipeline animation with flowing dash lines (DNA → Art → Token → Candy Machine → Recursive → Mint → Verify), x402 payment flow diagram, Clawd Model Stack architecture, and comprehensive module table.
+
+**10. Published** — `@openclawdsol/agentic-candy-machine-sdk@1.1.0` is live on npm with all new modules (`/x402`, `/metaplex-agent`, `/clawd-rwa`).
+
+---
+
 ## Pipeline Animation
 
 <p align="center">
