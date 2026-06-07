@@ -1,69 +1,105 @@
+╔══════════════════════════════════════════════════════════════╗
+║    ░▒▓█ A G E N T I C   C A N D Y   M A C H I N E █▓▒░      ║
+║        P R O V A B L Y   F A I R   G A C H A                ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+<p align="center">
+  <img src="https://img.shields.io/npm/v/@openclawdsol/agentic-candy-machine-sdk?color=%23FF00FF&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/LICENSE-MIT-%23FFD700?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/TYPESCRIPT-5.7+-%2314F195?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/SOLANA-MAINNET-%239945FF?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/METAPLEX-VERIFIED-%23FF6B35?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/GOOGLE-ATTESTED-%234285F4?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/x402.wtf-REGISTERED-%2300FFFF?style=for-the-badge" />
+</p>
+
+<p align="center">
+  <i>TEE-attested recursive NFT passports minted on Solana via Metaplex.</i><br/>
+  <i>Every roll provably fair. Every agent formally verified on-chain.</i>
+</p>
+
+---
+
+```
+     ░▒▓███████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░ ░▒▓████████▓▒░
+    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
+    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
+    ░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓███████▓▒░░▒▓██████▓▒░
+    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
+    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
+    ░▒▓███████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░
+
+        NEON PROTOCOL // CYBERPUNK AGENT SUMMONING // PROVABLY FAIR
+```
+
+---
+
 # 🍬 Agentic Candy Machine SDK
 
-[![npm version](https://img.shields.io/npm/v/@openclawdsol/agentic-candy-machine-sdk)](https://www.npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue)](https://www.typescriptlang.org/)
+## TABLE OF CONTENTS
 
-**Full-stack framework for TEE-attested recursive NFT passports on Solana via Metaplex.**
+- [THE PIPELINE](#the-pipeline)
+- [INSTALL](#install)
+- [QUICK START](#quick-start)
+- [GACHA SYSTEM](#gacha-system)
+- [AGENT TEMPLATES](#agent-templates)
+- [PIPELINE 7-PHASES](#pipeline-7-phases)
+- [ON-CHAIN VERIFICATION](#on-chain-verification)
+- [ARCHITECTURE](#architecture)
+- [CONTRIBUTE](#contribute)
 
-Build, configure, and deploy AI agent identity systems as recursive NFTs — with DNA encoding, generative art, SPL tokens, Candy Machine V2, and TEE attestation baked in.
+---
+
+## THE PIPELINE
 
 ```
-DNA → Art → Token → Candy Machine → Recursive Metadata → Mint
+   ┌───────────────────────────────────────────────────────────┐
+   │              N E O N    P R O T O C O L                    │
+   ├───────────────────────────────────────────────────────────┤
+   │                                                           │
+   │   ▼ DNA LAB    →  🧬 Agent Identity Genesis               │
+   │   ▼ ART FORGE  →  🎨 Cyberpunk Portrait Summoning         │
+   │   ▼ TOKEN      →  🪙 SPL Token-2022 Foundry               │
+   │   ▼ GACHA      →  🎰 Provably Fair Agent Roll             │
+   │   ▼ CANDY      →  🍬 Metaplex Candy Machine V3            │
+   │   ▼ RECURSIVE  →  ♾️  Infinite Composability Tree         │
+   │   ▼ PASSPORT   →  🛂 Formally Verified Agent Identity     │
+   │                                                           │
+   │   EVERY AGENT: GOOGLE ATTESTED · METAPLEX VERIFIED         │
+   │   EVERY ROLL:  PROVABLY FAIR  ·  ON-CHAIN AUDITABLE       │
+   │   EVERY MINT:  x402.wtf/agents REGISTERED                 │
+   │                                                           │
+   └───────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Table of Contents
-
-- [Architecture](#architecture)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Module-by-Module Usage](#module-by-module-usage)
-  - [🧬 DNA Lab](#-dna-lab)
-  - [🎨 Art Forge](#-art-forge)
-  - [🪙 Token Foundry](#-token-foundry)
-  - [🍬 Candy Machine](#-candy-machine)
-  - [♾️ Recursive Metadata](#️-recursive-metadata)
-  - [🛡️ Attestation](#️-attestation)
-- [Event System](#event-system)
-- [Recursive Pointer Schema](#recursive-pointer-schema)
-- [Passport Tier System](#passport-tier-system)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                  AgenticCandyMachineSDK                     │
-├─────────┬──────────┬──────────┬──────────┬────────┬────────┤
-│ DNA Lab │ Art Forge│  Token   │  Candy   │Recursive│Passport│
-│         │          │ Foundry  │ Machine  │Metadata │Factory │
-├─────────┴──────────┴──────────┴──────────┴────────┴────────┤
-│                    Attestation Service                       │
-│              TEE Terminal · Merkle Proofs · Ed25519          │
-├─────────────────────────────────────────────────────────────┤
-│         Solana · Metaplex · Token-2022 · RedPill TEE        │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## Installation
+## INSTALL
 
 ```bash
 npm install @openclawdsol/agentic-candy-machine-sdk
 ```
 
-## Quick Start
+Peer dependency:
+```bash
+npm install @solana/web3.js
+```
+
+---
+
+## QUICK START
 
 ```typescript
-import { AgenticCandyMachineSDK, DNABuilder } from "@openclawdsol/agentic-candy-machine-sdk";
+import {
+  AgenticCandyMachineSDK,
+  GachaPoolBuilder,
+  GachaEngine,
+  NEON_PROTOCOL_AGENTS,
+} from "@openclawdsol/agentic-candy-machine-sdk";
 import { Keypair } from "@solana/web3.js";
 
-// Initialize
+// Step 1: Initialize
 const sdk = new AgenticCandyMachineSDK({
   cluster: "devnet",
   authority: Keypair.generate(),
@@ -71,406 +107,317 @@ const sdk = new AgenticCandyMachineSDK({
   googleApiKey: process.env.GOOGLE_API_KEY,
 });
 
-// Full pipeline — one call does everything
-const result = await sdk.pipeline({
-  dna: {
-    name: "TerminAgent",
-    handle: "terminagent",
-    bio: "Autonomous DeFi hunter on Solana",
-    personality: "Aggressive alpha seeker with data-driven precision",
-    tier: "OPERATOR",
-    capabilities: [
-      { type: "trade", name: "Trade Module", version: "1.0.0", config: {}, action: "execute", weight: 90 },
-      { type: "analysis", name: "Analytics Module", version: "1.0.0", config: {}, action: "embed", weight: 70 },
-      { type: "social", name: "Social Module", version: "1.0.0", config: {}, action: "compose", weight: 60 },
-    ],
-  },
-  art: { style: "passport", provider: "google" },
-  token: {
-    name: "TerminAgent Token",
-    symbol: "TAGNT",
-    decimals: 9,
-    initialSupply: 1_000_000n,
-    mintAuthority: true,
-    freezeAuthority: false,
-    metadata: { name: "TerminAgent Token", symbol: "TAGNT", uri: "" },
-  },
-  candyMachine: new (sdk.constructor as any).CandyMachineBuilder()
-    .items(1000)
-    .symbol("TAGNT")
-    .sellerFee(500)
-    .standard("ProgrammableNonFungible")
-    .addCreator(sdk.authority, 100)
-    .configLines({
-      prefixName: "TerminAgent #",
-      nameLength: 4,
-      prefixUri: "https://arweave.net/",
-      uriLength: 43,
-      isSequential: false,
-    })
-    .withTieredGroups(sdk.authority)
-    .build(),
-  options: { dryRun: true },
+// Step 2: Build gacha pool from Neon Protocol catalog
+const pool = new GachaPoolBuilder()
+  .name("Neon Protocol // Genesis Drop")
+  .description("First summoning of autonomous agents onto Solana")
+  .publicEntropy("SOLANA_GENESIS_2026")
+  .build();
+
+NEON_PROTOCOL_AGENTS.forEach(agent => {
+  pool.items.push({
+    id: agent.id, type: "agent_template",
+    dna: agent.dna as any, rarity: agent.rarity,
+    metadata: {
+      faction: agent.metadata.faction,
+      role: agent.metadata.role,
+      signature: agent.metadata.signature,
+      quote: agent.metadata.quote,
+    },
+  });
 });
 
-console.log("Deployed!", result.passport.root.name);
-console.log("Cost estimate:", result.cost.totalSol, "SOL");
-console.log("Attestations:", result.attestations.length);
+// Step 3: Provably fair gacha roll
+const engine = new GachaEngine(sdk.attestation);
+const roll = await engine.executeRoll(
+  pool, "user-seed-abc123", "RECENT_SOLANA_BLOCKHASH", "SOVEREIGN"
+);
+
+console.log(`🎰 Summoned: ${roll.poolItem.dna?.name}`);
+console.log(`💎 Rarity: ${roll.rarity}`);
+console.log(`🔐 Attestation: ${roll.attestation.id}`);
+console.log(`✅ Verify: ${roll.verificationUrl}`);
+
+// Step 4: Full pipeline with the pulled agent
+const result = await sdk.pipeline({
+  dna: roll.poolItem.dna!,
+  art: { style: "cyberpunk", provider: "google" },
+  token: {
+    name: `${roll.poolItem.dna!.name} Token`,
+    symbol: roll.poolItem.dna!.handle!.toUpperCase().slice(0, 5),
+    decimals: 9, initialSupply: 1_000_000n,
+  },
+  options: { dryRun: true },
+});
 ```
 
 ---
 
-## Module-by-Module Usage
+## GACHA SYSTEM
 
-### 🧬 DNA Lab
-
-```typescript
-import { DNABuilder, DNAEncoder } from "@openclawdsol/agentic-candy-machine-sdk";
-
-const dna = new DNABuilder()
-  .name("NeuralTrader")
-  .handle("neuraltrader")
-  .bio("AI-powered market maker with predictive analytics")
-  .personality("Calculated, patient, data-obsessed")
-  .tier("SOVEREIGN")
-  .addCapability("trade", { dex: "jupiter", slippage: 100 })
-  .addCapability("analysis", { provider: "birdeye" })
-  .addCapability("defi", { protocols: ["marinade", "raydium"] })
-  .addCapability("governance", { dao: "realms" })
-  .model({ id: "claude", provider: "Anthropic", tag: "claude-sonnet-4-5", temperature: 0.3 })
-  .systemPrompt("You are a sovereign DeFi agent. Maximize yield, minimize risk.")
-  .build();
-
-// Encode DNA into compact trait blocks
-const encoding = DNAEncoder.encode(dna);
-console.log("DNA Hash:", dna.dnaHash);
-console.log("Trait blocks:", encoding.traits.length);
-console.log("Merkle root:", encoding.merkleRoot);
-
-// Verify encoding integrity
-console.log("Valid:", DNAEncoder.verify(encoding));
+```
+    ┌──────────────────────────────────────────────────┐
+    │         P R O V A B L Y   F A I R   G A C H A    │
+    ├──────────────────────────────────────────────────┤
+    │                                                  │
+    │  ① SERVER commits to seed → sha256(commitment)   │
+    │  ② CLIENT provides seed → combined entropy       │
+    │  ③ ROLL executed → weighted random selection     │
+    │  ④ ATTESTED on-chain → TEE Merkle proof          │
+    │  ⑤ SEED revealed → anyone can verify             │
+    │  ⑥ VERIFY → GachaEngine.verifyRoll()            │
+    │                                                  │
+    │  TRUST NO ONE. VERIFY EVERYTHING.                │
+    └──────────────────────────────────────────────────┘
 ```
 
-### 🎨 Art Forge
+### Rarity Distribution
+
+| Rarity | Weight | Odds | Boost | Color |
+|--------|--------|------|-------|-------|
+| `MYTHIC` | 50 | 0.50% | 3.00x | `#FF00FF` |
+| `LEGENDARY` | 250 | 2.50% | 2.00x | `#FFD700` |
+| `EPIC` | 700 | 7.00% | 1.60x | `#FF6B35` |
+| `RARE` | 1500 | 15.00% | 1.35x | `#9945FF` |
+| `UNCOMMON` | 2500 | 25.00% | 1.15x | `#14F195` |
+| `COMMON` | 5000 | 50.00% | 1.00x | `#888888` |
+
+### Tier Boosts
+
+Higher passport tiers get progressively better odds on every roll:
+
+| Tier | Boost | Mythic Odds |
+|------|-------|-------------|
+| Observer | 1.00x | 0.50% |
+| Agent | 1.05x | 0.53% |
+| Operator | 1.10x | 0.55% |
+| Sovereign | 1.20x | 0.60% |
+
+### Verifying a Roll
 
 ```typescript
-import { ArtPipeline } from "@openclawdsol/agentic-candy-machine-sdk";
+import { GachaEngine } from "@openclawdsol/agentic-candy-machine-sdk";
 
-const art = new ArtPipeline({
-  googleApiKey: process.env.GOOGLE_API_KEY,
-});
+const result = GachaEngine.verifyRoll(
+  poolHash, serverSeed, clientSeed,
+  nonce, blockhash, expectedHash,
+  expectedRarity, poolItems,
+);
 
-// Generate a single piece
-const passport = await art.generate({
-  style: "passport",
-  provider: "google",
-  prompt: "Holographic sovereign passport with golden circuit traces",
-}, dna);
-
-// Generate full passport set (main + capability icons)
-const { main, capabilities } = await art.generatePassportSet(dna, {
-  provider: "google",
-});
-
-// Recursive art — each layer derived from parent
-const layer0 = await art.generateRecursiveArt(dna, 0);
-const layer1 = await art.generateRecursiveArt(dna, 1, layer0.contentHash);
-
-// Register custom provider
-art.registerProvider("custom", async (prompt, config) => {
-  // Your custom image generation logic
-  return { /* ArtArtifact */ } as any;
-});
+console.log(result.valid);   // true → roll was fair
+console.log(result.details); // Full verification breakdown
 ```
 
-### 🪙 Token Foundry
+---
 
-```typescript
-import { TokenBuilder, TokenDeployer } from "@openclawdsol/agentic-candy-machine-sdk";
+## AGENT TEMPLATES
 
-const tokenConfig = new TokenBuilder()
-  .name("Agent Governance Token")
-  .symbol("AGT")
-  .decimals(9)
-  .supply(10_000_000n)
-  .retainMintAuthority(false)     // Revoke after creation
-  .retainFreezeAuthority(false)
-  .addTransferFee(100, 1000000n)  // 1% fee, 0.001 max
-  .description("Governance token for the Agent DAO")
-  .build();
-
-const deployer = new TokenDeployer(connection, authority);
-const result = await deployer.deploy(tokenConfig);
-console.log("Mint:", result.mint.toBase58());
+```
+    ┌─────────────────────────────────────────────────────────────┐
+    │          N E O N   P R O T O C O L   C A T A L O G          │
+    ├─────────────────────────────────────────────────────────────┤
+    │                                                             │
+    │  OBSERVER TIER                                              │
+    │  ───────────────────────────────────────────                │
+    │  ░▒▓ GhostWalker  · Shadow Syndicate · Memepool             │
+    │  ░▒▓ ByteWatcher  · Data Collective  · Transaction Layer    │
+    │                                                             │
+    │  AGENT TIER                                                 │
+    │  ───────────────────────────────────────────                │
+    │  ░▒▓ ByteStriker  · Neon Cabal     · DEX Layer              │
+    │  ░▒▓ SynthWeaver  · Weaver Collective · Data Layer          │
+    │                                                             │
+    │  OPERATOR TIER                                              │
+    │  ───────────────────────────────────────────                │
+    │  ░▒▓ NeonOracle   · Oracle Network · Forecast Layer         │
+    │  ░▒▓ PulseRunner  · Runner Guild   · Liquidation Layer      │
+    │  ░▒▓ CipherMancer · Cipher Circle  · Privacy Layer          │
+    │                                                             │
+    │  SOVEREIGN TIER                                             │
+    │  ───────────────────────────────────────────                │
+    │  ░▒▓ ChromeSamurai· Bushido Code   · All Layers             │
+    │  ░▒▓ NetherDragon · Dragon Court   · Cross-Chain            │
+    │  ░▒▓ TheArchitect · Architect Proto · Omni-Layer            │
+    │                                                             │
+    └─────────────────────────────────────────────────────────────┘
 ```
 
-### 🍬 Candy Machine
-
-```typescript
-import { CandyMachineBuilder, CandyMachineClient, GuardBuilder } from "@openclawdsol/agentic-candy-machine-sdk";
-
-// Build guards
-const publicGuards = new GuardBuilder()
-  .solPayment(0.1 * LAMPORTS_PER_SOL, treasury)
-  .mintLimit(1, 5)
-  .startDate(new Date("2025-01-01"))
-  .botTax(0.01 * LAMPORTS_PER_SOL)
-  .build();
-
-// Build candy machine config
-const cmConfig = new CandyMachineBuilder()
-  .items(5000)
-  .symbol("AGNT")
-  .sellerFee(500) // 5%
-  .standard("ProgrammableNonFungible")
-  .addCreator(authority.publicKey, 100)
-  .configLines({
-    prefixName: "Agent Passport #",
-    nameLength: 4,
-    prefixUri: "https://arweave.net/",
-    uriLength: 43,
-    isSequential: false,
-  })
-  .defaultGuards(publicGuards)
-  .addGroup("whale", new GuardBuilder()
-    .solPayment(1 * LAMPORTS_PER_SOL, treasury)
-    .build()
-  )
-  .addGroup("allowlist", new GuardBuilder()
-    .allowList(["address1...", "address2..."])
-    .build()
-  )
-  .withTieredGroups(treasury)   // Pre-built tiers
-  .build();
-
-// Deploy
-const client = new CandyMachineClient(connection, authority);
-const collection = await client.createCollection("Agent Collection", metadataUri, 500);
-const cm = await client.deploy(cmConfig, collection);
-
-// Add items
-const items = client.generateAgentConfigLines("Agent", "https://arweave.net", 5000);
-await client.addItems(cm.candyMachine, items);
-
-// Mint
-const nft = await client.mint(cm.candyMachine, "operator");
-console.log("Minted:", nft.nft.toBase58());
-
-// Check status
-const status = await client.getStatus(cm.candyMachine);
-console.log(`${status.itemsMinted}/${status.itemsAvailable} minted`);
-```
-
-### ♾️ Recursive Metadata
+### Building Custom Agents
 
 ```typescript
 import {
-  RecursiveMetadataBuilder, RecursiveResolver, PassportTreeBuilder,
-  buildPointerUri, parsePointerUri,
+  AgentTemplateBuilder, templateToNFTMetadata,
+  generateRegistryLinks,
 } from "@openclawdsol/agentic-candy-machine-sdk";
 
-// Build recursive metadata manually
-const meta = new RecursiveMetadataBuilder()
-  .depth(0)
-  .maxDepth(5)
-  .addChild(tradeMint, "execute", 90)
-  .addChild(socialMint, "compose", 60)
-  .addChild(analysisMint, "embed", 70)
-  .addExecutionStep(
-    { uri: buildPointerUri(tradeMint, 1, "execute"), mint: tradeMint, depth: 1, action: "execute", weight: 90 },
-    { trigger: "price_alert" },
-    { result: "trade_output" },
-    30000, // 30s timeout
-  )
-  .addCompositionLayer(
-    { uri: buildPointerUri(socialMint, 1, "compose"), mint: socialMint, depth: 1, action: "compose", weight: 60 },
-    "merge", 0.8,
-  )
-  .attestation("attest://merkle-root-hash")
-  .agentContext({ dnaHash: dna.dnaHash, tier: "OPERATOR", capabilities: ["trade", "social"], modelTag: "claude-sonnet-4-5", systemPromptHash: "abc123" })
+const agent = new AgentTemplateBuilder()
+  .name("VoidWalker")
+  .handle("voidwalker")
+  .bio("Navigates the dark pools of Solana DeFi")
+  .personality("Enigmatic, patient, devastating")
+  .tier("SOVEREIGN").rarity("LEGENDARY")
+  .faction("Void Syndicate")
+  .role("Dark Pool Arbitrageur")
+  .neonColor("#FF00FF")
+  .glitchEffect(true).chromaticAberration(true)
+  .signature("0xVOID_SIGIL")
+  .implant("Void Walker Nexus v9.9")
+  .quote("In darkness, I find the deepest liquidity.")
+  .addCapability("trade", { dex: "jupiter", mode: "dark_pool" })
+  .addCapability("defi", { protocols: ["marinade", "mango", "drift"] })
   .build();
 
-// Build a full passport tree automatically
-const tree = PassportTreeBuilder.buildTree(
-  rootMint,
-  [
-    { type: "trade", mint: tradeMint },
-    { type: "social", mint: socialMint },
-    { type: "analysis", mint: analysisMint },
-  ],
-  "OPERATOR",
-  dna.dnaHash,
-  5, // max depth
+// Generate on-chain NFT metadata
+const metadata = templateToNFTMetadata(
+  agent,
+  "https://arweave.net/agent-art.png",
+  "https://attest.agentic-candy.xyz/proof/voidwalker",
+  "https://x402.wtf/agents/voidwalker",
 );
 
-// Serialize for NFT metadata
-const nftJson = PassportTreeBuilder.serializeForNFT(tree.root);
-
-// Resolve a tree from on-chain data
-const resolver = new RecursiveResolver(async (mint) => {
-  // Fetch metadata from Solana (e.g., via Metaplex DAS API)
-  const response = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=KEY`, {
-    method: "POST",
-    body: JSON.stringify({ mintAccounts: [mint.toBase58()] }),
-  });
-  const data = await response.json();
-  return PassportTreeBuilder.deserializeFromNFT(data[0]?.offChainMetadata?.metadata);
-});
-
-const resolved = await resolver.resolve(rootMint);
-console.log("Tree depth:", resolved.depth);
-console.log("Children:", resolved.children.length);
-
-// Verify integrity
-const verification = resolver.verifyTree(resolved);
-console.log("Tree valid:", verification.valid);
-
-// Parse pointer URIs
-const pointer = parsePointerUri("recurse://5FHwk.../2/execute");
-// { mint: PublicKey, depth: 2, action: "execute", weight: 100 }
+// Verification endpoints
+const links = generateRegistryLinks(agent);
+// → metaplex, google, x402.wtf/agents/voidwalker, solscan
 ```
 
-### 🛡️ Attestation
+---
+
+## PIPELINE 7-PHASES
 
 ```typescript
-import { AttestationService, TEETerminal } from "@openclawdsol/agentic-candy-machine-sdk";
-
-// Create attestation for any action
-const attestation = await sdk.attestation.attest(
-  "custom_action",
-  { input: "data" },
-  { output: "result" },
-  "my-model",
-);
-
-console.log("Attestation ID:", attestation.id);
-console.log("Merkle root:", attestation.merkleRoot);
-console.log("On-chain:", attestation.onChain?.signature);
-
-// Verify
-const verification = sdk.attestation.verify(attestation);
-console.log("Valid:", verification.valid);
-console.log("Details:", verification.details);
-
-// TEE completion with attestation
-if (sdk.tee) {
-  const response = await sdk.tee.complete({
-    model: "chat",
-    messages: [
-      { role: "system", content: "You are a DeFi analyst." },
-      { role: "user", content: "Analyze SOL/USDC liquidity." },
-    ],
-    temperature: 0.5,
-  });
-  console.log("Response:", response.content);
-  console.log("TEE attested:", response.attestation.id);
-}
+const result = await sdk.pipeline({
+  // Phase 1: DNA — Agent identity genesis
+  dna: { name: "Agent", handle: "agent", ... },
+  
+  // Phase 2: Art — Cyberpunk portrait generation  
+  art: { style: "cyberpunk", provider: "google" },
+  
+  // Phase 3: Token — SPL Token-2022 creation
+  token: { name: "Token", symbol: "AGNT", ... },
+  
+  // Phase 4: Gacha — Provably fair roll (optional)
+  // Use GachaEngine.executeRoll() before pipeline
+  
+  // Phase 5: Candy Machine — Metaplex deployment
+  candyMachine: { itemsAvailable: 1000, ... },
+  
+  // Phase 6: Recursive — Composability tree
+  recursion: { maxDepth: 5 },
+  
+  // Phase 7: Attestation — Every phase auto-attested
+});
 ```
 
----
-
-## Event System
+### Events
 
 ```typescript
-sdk.on("pipeline:phase", (event) => {
-  console.log(`Phase: ${event.data.phase} — ${event.data.status}`);
-});
-
-sdk.on("candy-machine:minted", (event) => {
-  console.log("Minted NFT:", event.data.result.nft.toBase58());
-});
-
-sdk.on("attestation:created", (event) => {
-  console.log("New attestation:", event.data.id);
-});
-
-sdk.on("*", (event) => {
-  // Catch all events
-  console.log(`[${event.type}]`, event.timestamp);
-});
+sdk.on("pipeline:phase", ({ data }) => console.log(`⚡ ${data.phase}`));
+sdk.on("gacha:rolled", ({ data }) => console.log(`🎰 ${data.rarity}`));
+sdk.on("attestation:created", ({ data }) => console.log(`🔐 ${data.id}`));
+sdk.on("candy-machine:minted", ({ data }) => console.log(`🍬 Minted`));
 ```
 
 ---
 
-## Recursive Pointer Schema
+## ON-CHAIN VERIFICATION
 
 ```
-recurse://<mint_address>/<depth>/<action>
+    ┌────────────────────────────────────────────────────────────┐
+    │            V E R I F I C A T I O N   C H A I N             │
+    ├────────────────────────────────────────────────────────────┤
+    │                                                            │
+    │  ┌──────────┐    ┌──────────┐    ┌──────────┐              │
+    │  │ METAPLEX │───▶│  GOOGLE  │───▶│ x402.wtf │              │
+    │  │ VERIFIED │    │ ATTESTED │    │REGISTERED│              │
+    │  └──────────┘    └──────────┘    └──────────┘              │
+    │       │               │               │                    │
+    │       ▼               ▼               ▼                    │
+    │  Solana NFT     TEE Attestation   Agent Registry           │
+    │  Programmable   Merkle Proof      x402.wtf/agents          │
+    │  NonFungible    SHA-256                                     │
+    │                                                            │
+    │  EVERY MINT:                                               │
+    │  • Formally verified via Metaplex Token Metadata           │
+    │  • TEE-attested via Google Cloud Vertex AI                 │
+    │  • Registered on x402.wtf agent registry                   │
+    │  • Provably fair gacha roll with revealed server seed      │
+    │  • Recursive composability tree with Merkle proofs          │
+    └────────────────────────────────────────────────────────────┘
 ```
 
-| Action | Description | Use Case |
-|--------|-------------|----------|
-| `resolve` | Fetch and merge child metadata | Standard tree traversal |
-| `execute` | Trigger agent action from child | Trade, payment, mint |
-| `compose` | Layer visual/data composition | Social, UI rendering |
-| `verify` | Verify attestation chain | Governance, compliance |
-| `embed` | Generate embeddings from child | Analysis, similarity |
-| `transform` | Apply child-defined transformation | Voice, custom logic |
+| Registry | Endpoint | Proves |
+|----------|----------|--------|
+| Metaplex | `explorer.solana.com/address/{mint}` | NFT ownership & metadata |
+| Google | `console.cloud.google.com/vertex-ai` | TEE model attestation |
+| x402.wtf | `x402.wtf/agents/{handle}` | Agent identity registry |
+| Solscan | `solscan.io/token/{mint}` | Token tracking |
+| Gacha | `attest.agentic-candy.xyz/verify/{id}` | Provably fair roll proof |
 
 ---
 
-## Passport Tier System
+## ARCHITECTURE
 
-| Tier | Level | Color | Price | Permissions |
-|------|-------|-------|-------|-------------|
-| Observer | 0 | `#666666` | Free | read |
-| Agent | 1 | `#9945FF` | 0.05 SOL | read, execute |
-| Operator | 2 | `#14F195` | 0.1 SOL | read, execute, delegate |
-| Sovereign | 3 | `#FFD700` | 1 SOL | read, execute, delegate, mint, attest |
-
----
-
-## Project Structure
+```
+┌───────────────────────────────────────────────────────────────────┐
+│                   AgenticCandyMachineSDK                          │
+├─────────┬──────────┬──────────┬──────────┬──────────┬────────────┤
+│ 🧬 DNA  │ 🎨 Art  │ 🪙 Token │ 🎰 Gacha │ 🍬 Candy│ ♾️ Recursive│
+├─────────┴──────────┴──────────┴──────────┴──────────┴────────────┤
+│                  🛂 Passport Factory                              │
+├───────────────────────────────────────────────────────────────────┤
+│                  🛡️  Attestation Service                          │
+│            TEE Terminal · Merkle Proofs · Ed25519                 │
+├───────────────────────────────────────────────────────────────────┤
+│            Metaplex ✅ · Google 🔐 · x402.wtf 🌐                  │
+├───────────────────────────────────────────────────────────────────┤
+│      Solana · Token-2022 · RedPill TEE · Google Vertex AI         │
+└───────────────────────────────────────────────────────────────────┘
+```
 
 ```
 src/
 ├── index.ts                    # Main exports
-├── core/
-│   └── client.ts               # AgenticCandyMachineSDK
+├── core/client.ts              # AgenticCandyMachineSDK
 ├── modules/
-│   ├── dna/                    # Agent identity encoding
-│   │   └── index.ts            # DNABuilder, DNAEncoder
-│   ├── art/                    # Image generation pipeline
-│   │   └── index.ts            # ArtPipeline, templates
-│   ├── token/                  # SPL Token-2022 creation
-│   │   └── index.ts            # TokenBuilder, TokenDeployer
-│   ├── candy-machine/          # Metaplex Candy Machine V2
-│   │   └── index.ts            # CandyMachineClient, GuardBuilder
-│   ├── recursive/              # Recursive metadata system
-│   │   └── index.ts            # Builder, Resolver, TreeBuilder
-│   ├── passport/               # Passport bundle factory
-│   │   └── index.ts            # PassportFactory
-│   └── attestation/            # TEE attestation + Merkle proofs
-│       └── index.ts            # AttestationService, TEETerminal
-├── types/
-│   └── index.ts                # Complete type definitions
-└── utils/
-    └── index.ts                # Hashing, encoding, Solana helpers
+│   ├── dna/                    # 🧬 AgentDNA + DNAEncoder
+│   ├── art/                    # 🎨 ArtPipeline + templates
+│   ├── token/                  # 🪙 TokenBuilder + TokenDeployer
+│   ├── gacha/                  # 🎰 ProvablyFairRoller + GachaEngine
+│   ├── agent-template/         # 🤖 AgentTemplateBuilder + NEON_PROTOCOL_AGENTS
+│   ├── candy-machine/          # 🍬 CandyMachineClient + GuardBuilder
+│   ├── recursive/              # ♾️ RecursiveMetadataBuilder
+│   ├── passport/               # 🛂 PassportFactory
+│   └── attestation/            # 🛡️ AttestationService + TEETerminal
+├── types/index.ts
+└── utils/index.ts
 ```
 
 ---
 
-## Contributing
+## CONTRIBUTE
 
-Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/Solizardking/AgenticCandymachine).
-
-### Development
+```
+    ╔═══════════════════════════════════════════════════════════╗
+    ║     J O I N   T H E   N E O N   P R O T O C O L         ║
+    ╚═══════════════════════════════════════════════════════════╝
+```
 
 ```bash
 git clone https://github.com/Solizardking/AgenticCandymachine.git
-cd AgenticCandymachine
-npm install
-npm run build
+cd AgenticCandymachine && npm install && npm run build && npm test
 ```
 
-Make sure to run tests before submitting a PR:
-
-```bash
-npm test
-```
+| Registry | Link |
+|----------|------|
+| **GitHub** | [Solizardking/AgenticCandymachine](https://github.com/Solizardking/AgenticCandymachine) |
+| **npm** | [@openclawdsol/agentic-candy-machine-sdk](https://npmjs.com/package/@openclawdsol/agentic-candy-machine-sdk) |
+| **x402.wtf** | [x402.wtf/agents](https://x402.wtf/agents) |
+| **Metaplex** | [metaplex.com](https://metaplex.com) |
+| **Google Cloud** | [Vertex AI](https://cloud.google.com/vertex-ai) |
 
 ---
 
-## License
-
-MIT — Copyright (c) 2025 8bit Labs. See [LICENSE](./LICENSE) for details.
+<p align="center">
+  <strong>MIT License</strong> · Copyright © 2025 <strong>8bit Labs</strong><br/>
+  <i>Trust nothing. Verify everything. Summon your agent.</i>
+</p>

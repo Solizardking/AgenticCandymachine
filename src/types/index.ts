@@ -401,3 +401,123 @@ export interface DeploymentStep {
   status: "pending" | "running" | "completed" | "failed";
   updates?: string[];
 }
+
+// ─── Provably Fair Gacha ──────────────────────────────────────────────────
+
+export type GachaRarity = "COMMON" | "UNCOMMON" | "RARE" | "EPIC" | "LEGENDARY" | "MYTHIC";
+
+export interface GachaConfig {
+  pool: GachaPool;
+  clientSeed: string;
+  blockhash?: string;
+  boostTier?: string;
+  attest: boolean;
+  autoMint?: boolean;
+  candyMachine?: string;
+}
+
+export interface GachaPool {
+  id: string;
+  name: string;
+  description: string;
+  items: GachaPoolItem[];
+  publicEntropy: string;
+  poolHash: string;
+  totalWeight: number;
+  createdAt: number;
+}
+
+export interface GachaPoolItem {
+  id: string;
+  type: "agent_template" | "art_variant" | "token_drop" | "bonus";
+  dna?: AgentDNA;
+  rarity: GachaRarity;
+  metadata?: Record<string, unknown>;
+  weight?: number;
+}
+
+export interface GachaEntropy {
+  serverSeedHash: string;
+  clientSeed: string;
+  nonce: number;
+  blockhash: string;
+  combinedHash: string;
+  numericValue: string;
+}
+
+export interface GachaAttestation {
+  poolId: string;
+  poolHash: string;
+  poolName: string;
+  serverSeedHash: string;
+  clientSeed: string;
+  nonce: number;
+  blockhash: string;
+  combinedHash: string;
+  rollValue: string;
+  boostApplied: number;
+}
+
+export interface GachaResult {
+  commitment: string;
+  entropy: GachaEntropy;
+  poolItem: GachaPoolItem;
+  rarity: GachaRarity;
+  attestation: AttestationRecord;
+  serverSeed: string;
+  clientSeed: string;
+  nonce: number;
+  blockhash: string;
+  boost: number;
+  timestamp: number;
+  verificationUrl: string;
+  mintAddress?: string;
+  passport?: PassportBundle;
+}
+
+export interface GachaRoll {
+  id: string;
+  poolId: string;
+  roller: string;
+  commitment: string;
+  clientSeed: string;
+  nonce: number;
+  blockhash: string;
+  serverSeedRevealed: string;
+  rarity: GachaRarity;
+  poolItem: GachaPoolItem;
+  attestationId: string;
+  timestamp: number;
+}
+
+// ─── Agent Template ───────────────────────────────────────────────────────
+
+export interface AgentTemplate {
+  id: string;
+  name: string;
+  handle: string;
+  bio: string;
+  personality: string;
+  tier: PassportTier;
+  rarity: GachaRarity;
+  dna: Partial<AgentDNA>;
+  artPrompt: string;
+  artStyle: string;
+  artProvider: string;
+  metadata: {
+    faction: string;
+    role: string;
+    domain: string;
+    signature: string;
+    implant: string;
+    quote: string;
+    glitchEffect?: boolean;
+    neonColor?: string;
+    chromaticAberration?: boolean;
+  };
+  onChainVerification: {
+    metaplexVerified: boolean;
+    googleAttested: boolean;
+    x402Registered: boolean;
+  };
+}

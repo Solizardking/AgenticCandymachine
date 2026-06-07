@@ -32,6 +32,18 @@ export { PassportFactory } from "./modules/passport/index.js";
 // ─── Attestation Module ──────────────────────────────────────────────────
 export { AttestationService, TEETerminal } from "./modules/attestation/index.js";
 
+// ─── Provably Fair Gacha Module ──────────────────────────────────────────
+export {
+  GachaPoolBuilder, ProvablyFairRoller, GachaEngine,
+  RARITY_WEIGHTS, GACHA_PRESETS,
+} from "./modules/gacha/index.js";
+
+// ─── Agent Template Module ───────────────────────────────────────────────
+export {
+  AgentTemplateBuilder, NEON_PROTOCOL_AGENTS,
+  templatesToConfigLines, templateToNFTMetadata, generateRegistryLinks,
+} from "./modules/agent-template/index.js";
+
 // ─── Utilities ───────────────────────────────────────────────────────────
 export {
   sha256, sha384, sha256Bytes, hmacSha256, contentHash, dnaHash, traitVector,
