@@ -1,5 +1,5 @@
 {
-  "name": "@agentic-candy-machine/sdk",
+  "name": "@openclawdsol/agentic-candy-machine-sdk",
   "version": "1.0.0",
   "description": "Full-stack SDK for Agentic Candy Machine — TEE-attested recursive NFT passports on Solana via Metaplex",
   "license": "MIT",
@@ -84,6 +84,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mawdbot/AgenticCandymachine"
+    "url": "git+https://github.com/mawdbot/AgenticCandymachine.git"
   }
 }
