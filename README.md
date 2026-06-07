@@ -1,5 +1,9 @@
 # 🍬 Agentic Candy Machine SDK
 
+[![npm version](https://img.shields.io/npm/v/@agentic-candy-machine/sdk)](https://www.npmjs.com/package/@agentic-candy-machine/sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue)](https://www.typescriptlang.org/)
+
 **Full-stack framework for TEE-attested recursive NFT passports on Solana via Metaplex.**
 
 Build, configure, and deploy AI agent identity systems as recursive NFTs — with DNA encoding, generative art, SPL tokens, Candy Machine V2, and TEE attestation baked in.
@@ -7,6 +11,27 @@ Build, configure, and deploy AI agent identity systems as recursive NFTs — wit
 ```
 DNA → Art → Token → Candy Machine → Recursive Metadata → Mint
 ```
+
+---
+
+## Table of Contents
+
+- [Architecture](#architecture)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Module-by-Module Usage](#module-by-module-usage)
+  - [🧬 DNA Lab](#-dna-lab)
+  - [🎨 Art Forge](#-art-forge)
+  - [🪙 Token Foundry](#-token-foundry)
+  - [🍬 Candy Machine](#-candy-machine)
+  - [♾️ Recursive Metadata](#️-recursive-metadata)
+  - [🛡️ Attestation](#️-attestation)
+- [Event System](#event-system)
+- [Recursive Pointer Schema](#recursive-pointer-schema)
+- [Passport Tier System](#passport-tier-system)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -423,6 +448,29 @@ src/
     └── index.ts                # Hashing, encoding, Solana helpers
 ```
 
+---
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/mawdbot/AgenticCandymachine).
+
+### Development
+
+```bash
+git clone https://github.com/mawdbot/AgenticCandymachine.git
+cd AgenticCandymachine
+npm install
+npm run build
+```
+
+Make sure to run tests before submitting a PR:
+
+```bash
+npm test
+```
+
+---
+
 ## License
 
-MIT — 8bit Labs
+MIT — Copyright (c) 2025 8bit Labs. See [LICENSE](./LICENSE) for details.
