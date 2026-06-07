@@ -452,12 +452,12 @@ src/
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/mawdbot/AgenticCandymachine).
+Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/Solizardking/AgenticCandymachine).
 
 ### Development
 
 ```bash
-git clone https://github.com/mawdbot/AgenticCandymachine.git
+git clone https://github.com/Solizardking/AgenticCandymachine.git
 cd AgenticCandymachine
 npm install
 npm run build
