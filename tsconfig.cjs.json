@@ -1,10 +1,12 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
+        "rootDir": "./src",
         "module": "CommonJS",
         "moduleResolution": "Node",
         "outDir": "./dist/cjs",
-        "declaration": false
+        "declaration": false,
+        "ignoreDeprecations": "6.0"
     },
     "include": [
         "src/**/*"
