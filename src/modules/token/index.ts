@@ -1,5 +1,5 @@
 
-import { Connection, Keypair, PublicKey, SystemProgram, Transaction, sendAndConfirmTransaction } from "@solana/web3.js";
+import { Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import {
     createInitializeMintInstruction,
     TOKEN_2022_PROGRAM_ID,
@@ -7,7 +7,6 @@ import {
     ExtensionType,
     createInitializeMetadataPointerInstruction,
     createInitializeTransferFeeConfigInstruction,
-    MINT_SIZE
 } from "@solana/spl-token";
 import { TokenConfig, TokenDeployResult, TokenExtension, TokenMetadata } from "../../types/index.js";
 import { sleep } from "../../utils/index.js";

@@ -1,5 +1,5 @@
 import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
-import { createInitializeMintInstruction, TOKEN_2022_PROGRAM_ID, getMintLen, ExtensionType, createInitializeMetadataPointerInstruction } from "@solana/spl-token";
+import { createInitializeMintInstruction, TOKEN_2022_PROGRAM_ID, getMintLen, ExtensionType, createInitializeMetadataPointerInstruction, } from "@solana/spl-token";
 import { sleep } from "../../utils/index.js";
 // ─── Builder ─────────────────────────────────────────────────────────────────
 export class TokenBuilder {

@@ -1,5 +1,5 @@
 
-import { AgenticCandyMachineSDK, DNABuilder } from "./src/index.js";
+import { AgenticCandyMachineSDK, DNABuilder } from "../src/index.js";
 import { Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 async function main() {
